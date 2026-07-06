@@ -1,0 +1,17 @@
+node_modules
+.npm
+.pnpm-store
+npm-debug.log
+dist
+.next
+out
+.turbo
+.git
+.gitignore
+.env
+.dockerignore
+Dockerfile
+docker-compose.yml
+README.md
+test/
+**/*.spec.ts
