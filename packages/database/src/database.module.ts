@@ -11,8 +11,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         
         return {
           uri: configService.get<string>('MONGODB_URI'),
-          // Enable autoIndex only in development/test
-          autoIndex: !isProduction,
+          // Disable autoIndex temporarily to test if it's blocking
+          autoIndex: false,
           // Connection retry strategies
           retryAttempts: 5,
           retryDelay: 3000,
