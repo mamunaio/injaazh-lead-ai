@@ -5,6 +5,7 @@ import { UsersService } from '../users/application/services/users.service';
 import { OrganizationsService } from '../organizations/application/services/organizations.service';
 import { LoginDto } from './presentation/dto/login.dto';
 import { RegisterDto } from './presentation/dto/register.dto';
+import { CrmService } from '../crm/application/services/crm.service';
 
 @Injectable()
 export class AuthService {
@@ -12,6 +13,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
     private readonly organizationsService: OrganizationsService,
+    private readonly crmService: CrmService,
   ) {}
 
   async login(loginDto: LoginDto) {
@@ -70,6 +72,10 @@ export class AuthService {
 
     // Now update the organization with the real owner ID
     await this.organizationsService.update(org.id, { ownerId: user.id } as any);
+
+    // Create default CRM Pipeline for the organization
+    console.log('Creating default CRM pipeline...');
+    await this.crmService.createDefaultPipeline(org.id);
 
     const payload = { email: user.email, sub: user.id, roles: user.roles, organizationId: user.organizationId };
     return {

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Request, Query } from '@nestjs/common';
 import { LeadsService } from './application/services/leads.service';
 import { CreateLeadDto } from './presentation/dto/create-lead.dto';
 import { UpdateLeadDto } from './presentation/dto/update-lead.dto';
@@ -26,8 +26,13 @@ export class LeadsController {
   }
 
   @Get()
-  async findAll(@Request() req: any) {
-    return this.leadsService.findByOrganization(req.user.organizationId);
+  async findAll(@Request() req: any, @Query('tags') tags?: string) {
+    const filters: any = {};
+    if (tags) {
+        // e.g. tags=VIP,Hot
+        filters.tags = tags.split(',');
+    }
+    return this.leadsService.findByOrganization(req.user.organizationId, filters);
   }
 
   @Get(':id')
@@ -43,5 +48,15 @@ export class LeadsController {
   @Delete(':id')
   async remove(@Request() req: any, @Param('id') id: string) {
     return this.leadsService.delete(req.user.organizationId, id);
+  }
+
+  @Post(':id/tags')
+  async addTag(@Request() req: any, @Param('id') id: string, @Body('tag') tag: string) {
+    return this.leadsService.addTagToLead(req.user.organizationId, id, tag);
+  }
+
+  @Delete(':id/tags/:tag')
+  async removeTag(@Request() req: any, @Param('id') id: string, @Param('tag') tag: string) {
+    return this.leadsService.removeTagFromLead(req.user.organizationId, id, tag);
   }
 }

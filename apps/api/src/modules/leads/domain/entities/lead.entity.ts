@@ -13,6 +13,7 @@ export class Lead {
     public aiOutreach: any | null,
     public prospectIntelligence: any | null,
     public aiContext: any | null,
+    public tags: string[] = [],
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
   ) {}

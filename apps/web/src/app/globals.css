@@ -1,109 +1,78 @@
-:root {
-  /* Premium Dark Mode Colors */
-  --bg-base: #0c0a13;
-  --bg-surface: rgba(25, 23, 36, 0.6);
-  --bg-surface-hover: rgba(35, 33, 46, 0.8);
-  --bg-card: #151320;
-  
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-highlight: rgba(255, 255, 255, 0.15);
-  
-  --text-primary: #ffffff;
-  --text-secondary: #a19db3;
-  --text-muted: #6b687c;
-  
-  --accent-primary: #6366f1; /* Indigo */
-  --accent-primary-hover: #4f46e5;
-  --accent-secondary: #ec4899; /* Pink */
-  
-  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-  --gradient-surface: linear-gradient(180deg, rgba(25, 23, 36, 0.8) 0%, rgba(15, 13, 26, 0.4) 100%);
-  
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-  
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-full: 9999px;
+@import "tailwindcss";
+@source "../";
 
-  --transition-fast: 0.15s ease-in-out;
-  --transition-normal: 0.3s ease;
+@layer base {
+  :root {
+    --background: 219 28% 7%; /* #0D1117 */
+    --foreground: 210 20% 98%; /* #F9FAFB */
+
+    --card: 219 40% 11%; /* #111827 */
+    --card-foreground: 210 20% 98%;
+
+    --popover: 219 40% 11%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 236 78% 60%; /* #4F46E5 */
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 222 30% 15%; /* #1C2333 */
+    --secondary-foreground: 215 14% 65%; /* #9CA3AF */
+
+    --muted: 218 39% 20%; /* #1E2D45 */
+    --muted-foreground: 215 14% 46%; /* #6B7280 */
+
+    --accent: 222 34% 15%; /* #1A2235 */
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 84% 60%; /* #EF4444 */
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 28% 17%; /* #1F2937 */
+    --input: 215 28% 17%;
+    --ring: 236 78% 60%; /* #4F46E5 */
+
+    --radius: 12px;
+  }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  height: 100%;
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #374151; /* border-strong */
+  }
 }
 
-body {
-  background-color: var(--bg-base);
-  color: var(--text-primary);
-  font-family: var(--font-inter), sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-}
-
-input, textarea, select {
-  font-family: inherit;
-}
-
-/* Base Glassmorphism Class */
-.glass {
-  background: var(--bg-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-card);
-}
-
-/* Beautiful Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--border-highlight);
-}
-
-/* Text Gradients */
-.text-gradient {
-  background: var(--gradient-brand);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+@layer utilities {
+  .text-gradient-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#60A5FA] to-[#3B82F6];
+  }
+  .text-gradient-green {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#34D399] to-[#10B981];
+  }
+  .text-gradient-violet {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#A78BFA] to-[#7C3AED];
+  }
+  .text-gradient-orange {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FB923C] to-[#EA580C];
+  }
 }

@@ -14,6 +14,7 @@ import { GoogleMapsScraper } from './domain/strategies/google-maps.scraper';
 import { WebsiteScraper } from './domain/strategies/website.scraper';
 import { LinkedInScraper } from './domain/strategies/linkedin.scraper';
 import { CsvScraper } from './domain/strategies/csv.scraper';
+import { ApolloScraper } from './domain/strategies/apollo.scraper';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { CsvScraper } from './domain/strategies/csv.scraper';
     WebsiteScraper,
     LinkedInScraper,
     CsvScraper,
+    ApolloScraper,
     {
       provide: SCRAPE_JOB_REPOSITORY,
       useClass: ScrapeJobRepository,

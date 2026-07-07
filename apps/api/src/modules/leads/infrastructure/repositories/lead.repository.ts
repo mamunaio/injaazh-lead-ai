@@ -26,6 +26,7 @@ export class LeadRepository implements ILeadRepository {
       doc.aiOutreach || null,
       doc.prospectIntelligence || null,
       doc.aiContext || null,
+      doc.tags || [],
       (doc as any).createdAt,
       (doc as any).updatedAt,
     );
@@ -50,10 +51,22 @@ export class LeadRepository implements ILeadRepository {
     return this.mapToEntity(lead);
   }
 
-  async findByOrganization(organizationId: string): Promise<Lead[]> {
-    const leads = await this.leadModel.find({
-      organizationId: new Types.ObjectId(organizationId),
-    }).exec();
+  async findByOrganization(organizationId: string, filters: Record<string, any> = {}): Promise<Lead[]> {
+    const query: any = { organizationId: new Types.ObjectId(organizationId) };
+    
+    // Add filters logic
+    if (filters.tags && Array.isArray(filters.tags) && filters.tags.length > 0) {
+      query.tags = { $in: filters.tags };
+    }
+    
+    // Allow arbitrary other filters passed from service
+    for (const key of Object.keys(filters)) {
+        if (key !== 'tags' && filters[key] !== undefined) {
+            query[key] = filters[key];
+        }
+    }
+
+    const leads = await this.leadModel.find(query).exec();
     return leads.map(l => this.mapToEntity(l));
   }
 

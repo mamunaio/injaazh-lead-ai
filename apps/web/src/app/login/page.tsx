@@ -2,16 +2,24 @@
 
 import { useState } from 'react';
 import styles from './login.module.css';
+import { useAuth } from '../../context/AuthContext';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login, isLoading } = useAuth();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login for now
-    console.log('Logging in with:', { email, password });
-    window.location.href = '/dashboard';
+    setError('');
+    
+    try {
+      await login({ email, password });
+    } catch (err: any) {
+      setError(err.message || 'Failed to login');
+    }
   };
 
   return (
@@ -49,13 +57,15 @@ export default function LoginPage() {
             />
           </div>
 
-          <button type="submit" className={styles.submitBtn}>
-            Sign In
+          {error && <div className={styles.errorAlert}>{error}</div>}
+
+          <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+            {isLoading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
         
         <div className={styles.footer}>
-          <p>Don't have an account? <a href="#">Request Access</a></p>
+          <p>Don't have an account? <Link href="/register">Register</Link></p>
         </div>
       </div>
     </div>

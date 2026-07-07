@@ -20,6 +20,6 @@ import { USER_REPOSITORY } from './domain/repositories/user.repository.interface
       useClass: UserRepository,
     },
   ],
-  exports: [UsersService],
+  exports: [UsersService, USER_REPOSITORY],
 })
 export class UsersModule {}

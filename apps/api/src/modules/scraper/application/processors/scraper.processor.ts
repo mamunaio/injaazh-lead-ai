@@ -9,6 +9,7 @@ import { GoogleMapsScraper } from '../../domain/strategies/google-maps.scraper';
 import { WebsiteScraper } from '../../domain/strategies/website.scraper';
 import { LinkedInScraper } from '../../domain/strategies/linkedin.scraper';
 import { CsvScraper } from '../../domain/strategies/csv.scraper';
+import { ApolloScraper } from '../../domain/strategies/apollo.scraper';
 
 @Processor('scraper')
 export class ScraperProcessor extends WorkerHost {
@@ -21,6 +22,7 @@ export class ScraperProcessor extends WorkerHost {
     private readonly websiteScraper: WebsiteScraper,
     private readonly linkedInScraper: LinkedInScraper,
     private readonly csvScraper: CsvScraper,
+    private readonly apolloScraper: ApolloScraper,
   ) {
     super();
   }
@@ -53,6 +55,9 @@ export class ScraperProcessor extends WorkerHost {
           break;
         case 'CSV':
           rawLeads = await this.csvScraper.scrape(organizationId, jobId, scrapeJob.parameters);
+          break;
+        case 'Apollo':
+          rawLeads = await this.apolloScraper.scrape(organizationId, jobId, scrapeJob.parameters);
           break;
         default:
           throw new Error(`Unknown scraper type: ${scrapeJob.type}`);

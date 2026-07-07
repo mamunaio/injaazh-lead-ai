@@ -7,7 +7,7 @@ export class ScrapeJobDocument extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, index: true })
   organizationId!: Types.ObjectId;
 
-  @Prop({ required: true, enum: ['GoogleMaps', 'Website', 'LinkedIn', 'CSV'] })
+  @Prop({ required: true, enum: ['GoogleMaps', 'Website', 'LinkedIn', 'CSV', 'Apollo'] })
   type!: string;
 
   @Prop({ required: true, enum: ['Pending', 'Processing', 'Completed', 'Failed'], default: 'Pending' })

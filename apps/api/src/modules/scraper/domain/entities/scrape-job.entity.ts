@@ -2,7 +2,7 @@ export class ScrapeJob {
   constructor(
     public readonly id: string,
     public organizationId: string,
-    public type: 'GoogleMaps' | 'Website' | 'LinkedIn' | 'CSV',
+    public type: 'GoogleMaps' | 'Website' | 'LinkedIn' | 'CSV' | 'Apollo',
     public status: 'Pending' | 'Processing' | 'Completed' | 'Failed',
     public parameters: any,
     public progress: number,

@@ -29,11 +29,11 @@ export class LeadsService {
     return lead;
   }
 
-  async findByOrganization(organizationId: string) {
+  async findByOrganization(organizationId: string, filters: Record<string, any> = {}) {
     if (!organizationId) {
       throw new NotFoundException('Organization ID is missing from user context');
     }
-    return this.leadRepository.findByOrganization(organizationId);
+    return this.leadRepository.findByOrganization(organizationId, filters);
   }
 
   async update(organizationId: string, id: string, updateDto: UpdateLeadDto) {
@@ -56,5 +56,25 @@ export class LeadsService {
       throw new NotFoundException('Lead not found in your organization');
     }
     return deleted;
+  }
+
+  async addTagToLead(organizationId: string, id: string, tag: string) {
+    const lead = await this.findById(organizationId, id);
+    const tags = lead.tags || [];
+    if (!tags.includes(tag)) {
+        tags.push(tag);
+        return this.update(organizationId, id, { tags } as any);
+    }
+    return lead;
+  }
+
+  async removeTagFromLead(organizationId: string, id: string, tag: string) {
+    const lead = await this.findById(organizationId, id);
+    let tags = lead.tags || [];
+    if (tags.includes(tag)) {
+        tags = tags.filter(t => t !== tag);
+        return this.update(organizationId, id, { tags } as any);
+    }
+    return lead;
   }
 }

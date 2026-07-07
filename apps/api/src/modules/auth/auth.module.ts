@@ -7,11 +7,13 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { OrganizationsModule } from '../organizations/organizations.module';
+import { CrmModule } from '../crm/crm.module';
 
 @Module({
   imports: [
     UsersModule,
     OrganizationsModule,
+    CrmModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],

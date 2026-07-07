@@ -25,6 +25,10 @@ import { EmailEngineModule } from './modules/email-engine/email-engine.module';
 import { SequencesModule } from './modules/sequences/sequences.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { CrmModule } from './modules/crm/crm.module';
+import { TasksModule } from './modules/tasks/tasks.module';
+import { NotesModule } from './modules/notes/notes.module';
+import { SegmentsModule } from './modules/segments/segments.module';
 
 @Module({
   imports: [
@@ -60,6 +64,10 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
     SequencesModule,
     SchedulerModule,
     AnalyticsModule,
+    CrmModule,
+    TasksModule,
+    NotesModule,
+    SegmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

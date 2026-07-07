@@ -42,6 +42,9 @@ export class LeadDocument extends Document {
 
   @Prop({ type: mongoose.Schema.Types.Mixed, default: null })
   aiContext!: any | null;
+
+  @Prop({ type: [String], default: [] })
+  tags!: string[];
 }
 
 export const LeadSchema = SchemaFactory.createForClass(LeadDocument);
