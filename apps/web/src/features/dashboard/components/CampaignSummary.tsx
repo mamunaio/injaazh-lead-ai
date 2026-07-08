@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { CAMPAIGN_STATS_MOCK_DATA, CAMPAIGNS_MOCK_DATA } from '../../../mocks/dashboard';
@@ -32,11 +32,11 @@ export function CampaignSummary() {
                 <div>
                   <h3 className="text-[0.9375rem] font-semibold text-foreground group-hover:text-primary transition-colors">{camp.name}</h3>
                   <div className="text-[0.8125rem] text-secondary-foreground">
-                    Sequence: {camp.sequence} Â· {camp.audience} ({camp.total})
+                    Sequence: {camp.sequence} · {camp.audience} ({camp.total})
                   </div>
                 </div>
                 <div className={`flex items-center gap-1.5 text-[0.75rem] font-semibold ${camp.statusColor}`}>
-                  â— {camp.status}
+                  ● {camp.status}
                 </div>
               </div>
 
@@ -50,8 +50,8 @@ export function CampaignSummary() {
               </div>
 
               <div className="text-[0.75rem] text-secondary-foreground">
-                <span className="font-mono text-foreground mr-1">Open {camp.open}%</span> Â· 
-                <span className="font-mono text-foreground mx-1">Reply {camp.reply}%</span> Â· 
+                <span className="font-mono text-foreground mr-1">Open {camp.open}%</span> · 
+                <span className="font-mono text-foreground mx-1">Reply {camp.reply}%</span> · 
                 <span className="font-mono text-foreground ml-1">Bounced {camp.bounced}</span>
               </div>
               

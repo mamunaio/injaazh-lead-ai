@@ -1,5 +1,5 @@
 import React from 'react';
-import { LeadTask } from '../../../mocks/lead-details';
+import { LeadTask } from '../../../lib/api/leads.service';
 import { DataTable, ColumnDef } from '../../../components/ui/DataTable';
 import clsx from 'clsx';
 import { CheckCircle2, Circle } from 'lucide-react';

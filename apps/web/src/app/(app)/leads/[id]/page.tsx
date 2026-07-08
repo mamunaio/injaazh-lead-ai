@@ -74,7 +74,7 @@ export default function LeadDetailsPage() {
           </div>
           <div className="lg:col-span-5 space-y-6">
             <LeadScoreCard lead={lead} />
-            <LeadQuickActions />
+            <LeadQuickActions leadId={lead.id} initialOutreach={(lead as any).aiOutreach} />
             <LeadTagsCard tags={lead.tags} />
           </div>
         </div>

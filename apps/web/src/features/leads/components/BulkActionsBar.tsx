@@ -5,9 +5,10 @@ import clsx from 'clsx';
 interface BulkActionsBarProps {
   selectedCount: number;
   onClear: () => void;
+  onAssignCampaign?: () => void;
 }
 
-export function BulkActionsBar({ selectedCount, onClear }: BulkActionsBarProps) {
+export function BulkActionsBar({ selectedCount, onClear, onAssignCampaign }: BulkActionsBarProps) {
   if (selectedCount === 0) return null;
 
   return (
@@ -20,7 +21,10 @@ export function BulkActionsBar({ selectedCount, onClear }: BulkActionsBarProps) 
       </div>
 
       <div className="flex items-center gap-1">
-        <button className="h-8 px-3 inline-flex items-center justify-center gap-2 hover:bg-accent text-secondary-foreground hover:text-foreground text-[0.8125rem] font-medium rounded-full transition-colors">
+        <button 
+          onClick={onAssignCampaign}
+          className="h-8 px-3 inline-flex items-center justify-center gap-2 hover:bg-accent text-secondary-foreground hover:text-foreground text-[0.8125rem] font-medium rounded-full transition-colors"
+        >
           <UserPlus className="w-3.5 h-3.5" />
           Assign Campaign
         </button>

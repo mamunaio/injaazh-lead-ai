@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ArrowDownToLine, BadgeCheck, Mail, MessageSquare } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -69,11 +69,11 @@ const KpiCard = ({ data, loading }: { data: KpiData, loading?: boolean }) => {
         ) : (
           <div className="text-[0.75rem] text-secondary-foreground flex items-center gap-1">
             {data.trendNeutral ? (
-              <span className="text-muted-foreground">â€“</span>
+              <span className="text-muted-foreground">–</span>
             ) : data.trendPositive ? (
-              <span className="text-green text-[0.625rem]">â–²</span>
+              <span className="text-green text-[0.625rem]">▲</span>
             ) : (
-              <span className="text-destructive text-[0.625rem]">â–¼</span>
+              <span className="text-destructive text-[0.625rem]">▼</span>
             )}
             <span>{data.trend}</span>
           </div>

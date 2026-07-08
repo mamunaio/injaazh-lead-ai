@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lead } from '../../../mocks/leads';
+import { Lead } from '../../../lib/api/leads.service';
 import { DataTable, ColumnDef } from '../../../components/ui/DataTable';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
 import { ScoreBadge } from '../../../components/ui/ScoreBadge';

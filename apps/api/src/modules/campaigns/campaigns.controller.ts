@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Request } from '@nestjs/common';
 import { CampaignManagerService } from './application/services/campaign.manager.service';
 import { CreateCampaignDto, EnrollLeadsDto, UpdateCampaignDto } from './presentation/dto/campaign.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -59,5 +59,11 @@ export class CampaignsController {
   @Roles('Owner', 'Admin')
   async stopCampaign(@Request() req: any, @Param('id') campaignId: string) {
     return this.campaignManager.stopCampaign(req.user.organizationId, campaignId);
+  }
+
+  @Delete(':id')
+  @Roles('Owner', 'Admin')
+  async deleteCampaign(@Request() req: any, @Param('id') campaignId: string) {
+    return this.campaignManager.deleteCampaign(req.user.organizationId, campaignId);
   }
 }

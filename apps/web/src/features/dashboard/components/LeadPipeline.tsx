@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
@@ -57,7 +57,7 @@ export function LeadPipeline() {
                   </div>
                   <div>
                     <span className="text-[0.875rem] font-medium text-foreground">{lead.name}</span>
-                    <span className="text-[0.8125rem] text-secondary-foreground ml-1 hidden sm:inline-block">Â· {lead.company}</span>
+                    <span className="text-[0.8125rem] text-secondary-foreground ml-1 hidden sm:inline-block">· {lead.company}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

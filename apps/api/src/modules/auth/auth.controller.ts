@@ -21,8 +21,6 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: 'Register a new user and organization' })
   async register(@Body() registerDto: RegisterDto) {
-    console.log('Controller hit: register', registerDto.email);
-    console.log('Mongoose readyState:', require('mongoose').connection.readyState);
     return this.authService.register(registerDto);
   }
 }

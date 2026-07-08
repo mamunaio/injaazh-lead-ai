@@ -1,5 +1,5 @@
 import React from 'react';
-import { LeadCampaignHistory } from '../../../mocks/lead-details';
+import { LeadCampaignHistory } from '../../../lib/api/leads.service';
 import clsx from 'clsx';
 import { Megaphone, Calendar } from 'lucide-react';
 

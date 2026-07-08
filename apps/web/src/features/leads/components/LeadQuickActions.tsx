@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, MonitorSpeaker, ChevronRight } from 'lucide-react';
+import { GenerateEmailModal } from './GenerateEmailModal';
 
-export function LeadQuickActions() {
+export function LeadQuickActions({ leadId, initialOutreach }: { leadId: string, initialOutreach?: any }) {
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+
   return (
     <div className="bg-card border border-border rounded-xl p-6">
       <h3 className="text-lg font-semibold text-card-foreground mb-4">Quick Actions</h3>
       <div className="space-y-3">
-        <button className="w-full flex items-center justify-between p-3 rounded-lg border border-border bg-background hover:bg-secondary transition-colors group">
+        <button 
+          onClick={() => setIsEmailModalOpen(true)}
+          className="w-full flex items-center justify-between p-3 rounded-lg border border-border bg-background hover:bg-secondary transition-colors group"
+        >
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-md bg-violet-500/10 flex items-center justify-center shrink-0">
               <Mail className="w-4 h-4 text-violet-500" />
@@ -25,6 +31,13 @@ export function LeadQuickActions() {
           <ChevronRight className="w-4 h-4 text-secondary-foreground group-hover:text-foreground transition-colors" />
         </button>
       </div>
+
+      <GenerateEmailModal 
+        isOpen={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+        leadId={leadId}
+        initialOutreach={initialOutreach}
+      />
     </div>
   );
 }

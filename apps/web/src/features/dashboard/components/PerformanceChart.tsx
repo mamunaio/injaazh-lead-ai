@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export function PerformanceChart() {
   return (
@@ -9,7 +9,7 @@ export function PerformanceChart() {
         </h2>
         <div className="flex gap-4">
           <button className="text-tertiary text-sm pb-1">7D</button>
-          <button className="text-primary text-sm pb-1 border-b-2 border-primary font-medium">30D â—</button>
+          <button className="text-primary text-sm pb-1 border-b-2 border-primary font-medium">30D ●</button>
           <button className="text-tertiary text-sm pb-1">90D</button>
         </div>
       </div>

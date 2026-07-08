@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Company, MOCK_COMPANIES } from '../../../mocks/companies';
-import { LEADS_MOCK_DATA, Lead } from '../../../mocks/leads';
+import { LEADS_MOCK_DATA, Lead } from '../../../lib/api/leads.service';
 
 export function useCompany(id: string) {
   const [company, setCompany] = useState<Company | null>(null);

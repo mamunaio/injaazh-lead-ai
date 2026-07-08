@@ -1,7 +1,7 @@
 import React from 'react';
 import { Search, Filter, Columns, ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
-import { LeadStatus } from '../../../mocks/leads';
+import { LeadStatus } from '../../../lib/api/leads.service';
 
 interface LeadsToolbarProps {
   searchQuery: string;

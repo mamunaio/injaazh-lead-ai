@@ -1,5 +1,5 @@
 import React from 'react';
-import { LeadActivity } from '../../../mocks/lead-details';
+import { LeadActivity } from '../../../lib/api/leads.service';
 import { Mail, FileText, CheckCircle2, Clock } from 'lucide-react';
 import clsx from 'clsx';
 

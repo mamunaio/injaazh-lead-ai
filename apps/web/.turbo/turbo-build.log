@@ -3,24 +3,46 @@
 > next build
 
 ▲ Next.js 16.2.10 (Turbopack)
+- Environments: .env.local, .env.production
 
   Creating an optimized production build ...
-✓ Compiled successfully in 3.2s
+✓ Compiled successfully in 8.7s
   Running TypeScript ...
-  Finished TypeScript in 2.5s ...
+  Finished TypeScript in 5.8s ...
   Collecting page data using 5 workers ...
-  Generating static pages using 5 workers (0/5) ...
-  Generating static pages using 5 workers (1/5) 
-  Generating static pages using 5 workers (2/5) 
-  Generating static pages using 5 workers (3/5) 
-✓ Generating static pages using 5 workers (5/5) in 237ms
+  Generating static pages using 5 workers (0/23) ...
+  Generating static pages using 5 workers (5/23) 
+  Generating static pages using 5 workers (11/23) 
+  Generating static pages using 5 workers (17/23) 
+✓ Generating static pages using 5 workers (23/23) in 802ms
   Finalizing page optimization ...
 
 Route (app)
 ┌ ○ /
 ├ ○ /_not-found
-└ ○ /login
+├ ○ /analytics
+├ ƒ /api/health
+├ ○ /campaigns
+├ ○ /campaigns/new
+├ ƒ /companies/[id]
+├ ○ /crm/tasks
+├ ○ /dashboard
+├ ○ /inbox
+├ ○ /leads
+├ ƒ /leads/[id]
+├ ○ /leads/import
+├ ○ /login
+├ ○ /register
+├ ○ /sequences/new
+├ ○ /settings/billing
+├ ○ /settings/integrations
+├ ○ /settings/organization
+├ ○ /settings/profile
+├ ○ /settings/prompts/builder
+├ ○ /settings/team
+└ ○ /workflows/new
 
 
-○  (Static)  prerendered as static content
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
 

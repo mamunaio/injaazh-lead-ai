@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { AI_INSIGHTS_MOCK_DATA } from '../../../mocks/dashboard';
 
@@ -12,7 +12,7 @@ export function AiInsightStrip() {
             AI Insights
           </h2>
         </div>
-        <span className="text-[0.6875rem] text-muted-foreground">â†» 12m ago</span>
+        <span className="text-[0.6875rem] text-muted-foreground">↻ 12m ago</span>
       </div>
 
       <div className="flex-1 overflow-y-auto flex flex-col no-scrollbar">
@@ -26,7 +26,7 @@ export function AiInsightStrip() {
                 </div>
                 <div>
                   <span className="text-[0.8125rem] font-medium text-foreground">{item.name}</span>
-                  <span className="text-[0.8125rem] text-secondary-foreground ml-1">Â· {item.company}</span>
+                  <span className="text-[0.8125rem] text-secondary-foreground ml-1">· {item.company}</span>
                 </div>
               </div>
               <div className="w-6 h-6 rounded-full border border-green text-green bg-green-subtle flex items-center justify-center text-[0.6875rem] font-bold">

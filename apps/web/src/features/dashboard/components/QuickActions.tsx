@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Plus, Upload, LayoutTemplate, Repeat, Sparkles, ArrowRight, Check } from 'lucide-react';
 import Link from 'next/link';
 import { ONBOARDING_MOCK_DATA, QUICK_ACTIONS_MOCK_DATA } from '../../../mocks/dashboard';

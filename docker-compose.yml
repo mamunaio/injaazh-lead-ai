@@ -1,21 +1,56 @@
 version: '3.8'
+
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:4.4
+    restart: always
     ports:
       - "27017:27017"
     volumes:
-      - mongodb_data:/data/db
-    restart: unless-stopped
+      - mongodb_data_v4:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=injaazh
 
   redis:
-    image: redis:latest
+    image: redis:7.0-alpine
+    restart: always
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
-    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Production Web Server (Comment out for local dev if desired, but keeping them here)
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./apps/web/.env.production
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    profiles: ["production"] # Only runs if --profile production is used
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+    profiles: ["production"] # Only runs if --profile production is used
 
 volumes:
-  mongodb_data:
+  mongodb_data_v4:
   redis_data:

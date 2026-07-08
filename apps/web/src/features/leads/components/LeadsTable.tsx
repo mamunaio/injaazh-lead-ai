@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { MoreHorizontal, Edit2, Trash2, Users } from 'lucide-react';
-import { Lead } from '../../../mocks/leads';
+import { Lead } from '../../../lib/api/leads.service';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
 import { ScoreBadge } from '../../../components/ui/ScoreBadge';
 import { TagList } from '../../../components/ui/TagPill';
@@ -12,9 +12,12 @@ interface LeadsTableProps {
   selectedIds: Set<string>;
   onToggleSelect: (id: string) => void;
   onToggleAll: () => void;
+  onRowClick?: (lead: Lead) => void;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
-export function LeadsTable({ leads, loading, selectedIds, onToggleSelect, onToggleAll }: LeadsTableProps) {
+export function LeadsTable({ leads, loading, selectedIds, onToggleSelect, onToggleAll, onRowClick, onEdit, onDelete }: LeadsTableProps) {
   const columns = useMemo<ColumnDef<Lead>[]>(() => [
     {
       header: 'Lead Name',
@@ -64,10 +67,10 @@ export function LeadsTable({ leads, loading, selectedIds, onToggleSelect, onTogg
       className: 'text-right',
       accessor: (lead) => (
         <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
-          <button className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-secondary text-secondary-foreground hover:text-foreground transition-colors" title="Edit Lead">
+          <button onClick={(e) => { e.stopPropagation(); onEdit?.(lead.id); }} className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-secondary text-secondary-foreground hover:text-foreground transition-colors" title="Edit Lead">
             <Edit2 className="w-4 h-4" />
           </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-destructive/10 text-destructive transition-colors" title="Delete Lead">
+          <button onClick={(e) => { e.stopPropagation(); onDelete?.(lead.id); }} className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-destructive/10 text-destructive transition-colors" title="Delete Lead">
             <Trash2 className="w-4 h-4" />
           </button>
         </div>
@@ -86,9 +89,9 @@ export function LeadsTable({ leads, loading, selectedIds, onToggleSelect, onTogg
         <button className="h-9 px-4 inline-flex items-center justify-center gap-2 bg-secondary hover:bg-accent text-foreground text-[0.875rem] font-medium rounded-md border border-border transition-colors">
           Import CSV
         </button>
-        <button className="h-9 px-4 inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-[0.875rem] font-medium rounded-md shadow-sm transition-colors">
+        <a href="/leads/new" className="h-9 px-4 inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-[0.875rem] font-medium rounded-md shadow-sm transition-colors">
           Add Lead
-        </button>
+        </a>
       </div>
     </>
   );
@@ -102,6 +105,7 @@ export function LeadsTable({ leads, loading, selectedIds, onToggleSelect, onTogg
       selectedIds={selectedIds}
       onToggleSelect={onToggleSelect}
       onToggleAll={onToggleAll}
+      onRowClick={onRowClick}
       emptyState={emptyState}
     />
   );

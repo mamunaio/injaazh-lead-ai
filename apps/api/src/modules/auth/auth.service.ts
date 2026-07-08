@@ -38,9 +38,7 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
-    console.log('Registering user:', registerDto.email);
     const existingUser = await this.usersService.findByEmail(registerDto.email);
-    console.log('Checked existing user');
     if (existingUser) {
       throw new BadRequestException('Email already in use');
     }
@@ -51,15 +49,15 @@ export class AuthService {
     // Wait, OrganizationSchema requires ownerId.
     // Let's create the Organization first with a dummy ownerId, then create the User, then update the Org's ownerId.
     
-    console.log('Creating organization...');
+    
     const dummyOwnerId = '000000000000000000000000'; // valid 24 char hex for ObjectId
     const org = await this.organizationsService.create({
       name: registerDto.organizationName,
       ownerId: dummyOwnerId,
     });
-    console.log('Created organization:', org.id);
+    
 
-    console.log('Creating user...');
+    
     const user = await this.usersService.create({
       email: registerDto.email,
       password: registerDto.password,
@@ -68,13 +66,12 @@ export class AuthService {
       organizationId: org.id,
       roles: ['Owner'],
     } as any);
-    console.log('Created user:', user.id);
+    
 
     // Now update the organization with the real owner ID
     await this.organizationsService.update(org.id, { ownerId: user.id } as any);
 
     // Create default CRM Pipeline for the organization
-    console.log('Creating default CRM pipeline...');
     await this.crmService.createDefaultPipeline(org.id);
 
     const payload = { email: user.email, sub: user.id, roles: user.roles, organizationId: user.organizationId };

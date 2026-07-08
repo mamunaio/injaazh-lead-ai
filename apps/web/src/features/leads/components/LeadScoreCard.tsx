@@ -1,5 +1,5 @@
 import React from 'react';
-import { DetailedLead } from '../../../mocks/lead-details';
+import { DetailedLead } from '../../../lib/api/leads.service';
 import { ScoreBadge } from '../../../components/ui/ScoreBadge';
 import { Sparkles, BrainCircuit } from 'lucide-react';
 
@@ -8,6 +8,9 @@ interface LeadScoreCardProps {
 }
 
 export function LeadScoreCard({ lead }: LeadScoreCardProps) {
+  const scoreBreakdown = lead.scoreBreakdown || { fit: 0, intent: 0, engagement: 0 };
+  const aiRecommendations = lead.aiRecommendations || [];
+
   return (
     <div className="bg-card border border-border rounded-xl p-6">
       <div className="flex items-start justify-between mb-6">
@@ -17,7 +20,7 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
             AI Lead Score
           </h3>
           <div className="text-[0.75rem] text-secondary-foreground mt-1">
-            Last scored: {new Date(lead.lastScoredAt).toLocaleString()}
+            Last scored: {lead.lastScoredAt ? new Date(lead.lastScoredAt).toLocaleString() : 'Never'}
           </div>
         </div>
         <div className="scale-125 origin-top-right">
@@ -29,40 +32,40 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
         <div>
           <div className="flex items-center justify-between text-sm mb-1">
             <span className="text-secondary-foreground">Profile Fit</span>
-            <span className="font-medium text-foreground">{lead.scoreBreakdown.fit}/100</span>
+            <span className="font-medium text-foreground">{scoreBreakdown.fit}/100</span>
           </div>
           <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
-            <div className="h-full bg-primary" style={{ width: `${lead.scoreBreakdown.fit}%` }} />
+            <div className="h-full bg-primary" style={{ width: `${scoreBreakdown.fit}%` }} />
           </div>
         </div>
         <div>
           <div className="flex items-center justify-between text-sm mb-1">
             <span className="text-secondary-foreground">Buying Intent</span>
-            <span className="font-medium text-foreground">{lead.scoreBreakdown.intent}/100</span>
+            <span className="font-medium text-foreground">{scoreBreakdown.intent}/100</span>
           </div>
           <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
-            <div className="h-full bg-primary" style={{ width: `${lead.scoreBreakdown.intent}%` }} />
+            <div className="h-full bg-primary" style={{ width: `${scoreBreakdown.intent}%` }} />
           </div>
         </div>
         <div>
           <div className="flex items-center justify-between text-sm mb-1">
             <span className="text-secondary-foreground">Engagement</span>
-            <span className="font-medium text-foreground">{lead.scoreBreakdown.engagement}/100</span>
+            <span className="font-medium text-foreground">{scoreBreakdown.engagement}/100</span>
           </div>
           <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
-            <div className="h-full bg-primary" style={{ width: `${lead.scoreBreakdown.engagement}%` }} />
+            <div className="h-full bg-primary" style={{ width: `${scoreBreakdown.engagement}%` }} />
           </div>
         </div>
       </div>
 
-      {lead.aiRecommendations.length > 0 && (
+      {aiRecommendations.length > 0 && (
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
           <h4 className="text-sm font-medium text-primary-foreground flex items-center gap-2 mb-3">
             <Sparkles className="w-4 h-4 text-primary" />
             AI Recommendations
           </h4>
           <ul className="space-y-2 text-sm text-secondary-foreground list-disc list-inside">
-            {lead.aiRecommendations.map((rec: string, idx: number) => (
+            {aiRecommendations.map((rec: string, idx: number) => (
               <li key={idx}>{rec}</li>
             ))}
           </ul>

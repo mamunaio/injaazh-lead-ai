@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { MessageSquare, Eye, CheckCircle, Upload, Sparkles, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { ACTIVITY_TODAY_MOCK_DATA, ACTIVITY_YESTERDAY_MOCK_DATA } from '../../../mocks/dashboard';
@@ -35,7 +35,7 @@ export function RecentActivity() {
               {(item.meta || item.link) && (
                 <div className="text-[0.8125rem] text-tertiary mt-0.5 flex items-center gap-2">
                   {item.meta && <span>{item.meta}</span>}
-                  {item.meta && item.link && <span>Â·</span>}
+                  {item.meta && item.link && <span>·</span>}
                   {item.link && (
                     <Link href="#" className="text-secondary-foreground hover:text-primary hover:underline flex items-center gap-1 transition-colors">
                       {item.link} <ArrowRight className="w-3 h-3" />
@@ -61,7 +61,7 @@ export function RecentActivity() {
         </h2>
         <div className="flex items-center gap-4">
           <div className="flex gap-3">
-            <button className="text-primary text-sm font-medium border-b-2 border-primary pb-4 -mb-4">All â—</button>
+            <button className="text-primary text-sm font-medium border-b-2 border-primary pb-4 -mb-4">All ●</button>
             <button className="text-tertiary hover:text-foreground text-sm pb-4 -mb-4 transition-colors">Emails</button>
             <button className="text-tertiary hover:text-foreground text-sm pb-4 -mb-4 transition-colors">Tasks</button>
           </div>
@@ -77,7 +77,7 @@ export function RecentActivity() {
         {renderGroup('Yesterday', ACTIVITY_YESTERDAY_MOCK_DATA)}
         
         <button className="w-full py-2 text-[0.875rem] text-tertiary hover:text-secondary-foreground transition-colors mt-2">
-          Load 10 more activities â†“
+          Load 10 more activities ↓
         </button>
       </div>
     </div>

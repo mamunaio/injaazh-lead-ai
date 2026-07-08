@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
+import { LeadsService } from '../../../lib/api/leads.service';
 import {
   DetailedLead,
   LeadActivity,
   LeadTask,
   LeadCampaignHistory,
-  LEAD_DETAILS_MOCK,
+} from '../../../lib/api/leads.service';
+import {
   LEAD_ACTIVITIES_MOCK,
-  LEAD_TASKS_MOCK,
   LEAD_CAMPAIGNS_MOCK,
 } from '../../../mocks/lead-details';
+import { TasksService } from '../../../lib/api/tasks.service';
 
 export function useLead(id: string) {
   const [lead, setLead] = useState<DetailedLead | null>(null);
@@ -22,23 +24,25 @@ export function useLead(id: string) {
   useEffect(() => {
     let mounted = true;
 
-    // Simulate API call
-    setTimeout(() => {
-      if (!mounted) return;
-      
-      // Simulate not found
-      if (id !== 'lead_001' && id !== '1') {
-        setError(new Error('Lead not found'));
-        setIsLoading(false);
-        return;
+    const fetchLead = async () => {
+      try {
+        const data = await LeadsService.getLead(id);
+        if (!mounted) return;
+        setLead(data as any); // Cast for now until detailed lead type is unified
+        // Keep mock data for activities and campaigns since no backend APIs yet
+        setActivities(LEAD_ACTIVITIES_MOCK);
+        setCampaigns(LEAD_CAMPAIGNS_MOCK);
+        
+        // Fetch actual tasks
+        const realTasks = await TasksService.getTasks({ leadId: id });
+        setTasks(realTasks as any);
+      } catch (err: any) {
+        if (mounted) setError(err);
+      } finally {
+        if (mounted) setIsLoading(false);
       }
-
-      setLead(LEAD_DETAILS_MOCK);
-      setActivities(LEAD_ACTIVITIES_MOCK);
-      setTasks(LEAD_TASKS_MOCK);
-      setCampaigns(LEAD_CAMPAIGNS_MOCK);
-      setIsLoading(false);
-    }, 800);
+    };
+    fetchLead();
 
     return () => {
       mounted = false;

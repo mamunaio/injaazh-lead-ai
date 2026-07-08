@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import { apiFetch } from '../../../lib/api';
+import { useRouter } from 'next/navigation';
 
 export type ImportStep = 'upload' | 'map' | 'options' | 'progress' | 'success';
 
@@ -25,42 +27,88 @@ export function useLeadImport() {
   
   const [importProgress, setImportProgress] = useState(0);
   const [importResult, setImportResult] = useState<{ total: number; success: number; failed: number } | null>(null);
+  const [allParsedData, setAllParsedData] = useState<CSVRow[]>([]);
+  const router = useRouter();
 
   const handleUpload = useCallback((uploadedFile: File) => {
     setFile(uploadedFile);
     setIsParsing(true);
     
-    // Simulate parsing
-    setTimeout(() => {
-      setCsvHeaders(['Email Address', 'First Name', 'Last Name', 'Company Name']);
-      setPreviewData([
-        { 'Email Address': 'john@acme.com', 'First Name': 'John', 'Last Name': 'Doe', 'Company Name': 'Acme Corp' },
-        { 'Email Address': 'jane@startup.io', 'First Name': 'Jane', 'Last Name': 'Smith', 'Company Name': 'Startup IO' },
-        { 'Email Address': 'bob@bigco.net', 'First Name': 'Bob', 'Last Name': 'Johnson', 'Company Name': 'BigCo' },
-      ]);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      if (!text) {
+        setIsParsing(false);
+        return;
+      }
+      
+      const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
+      if (lines.length > 0) {
+        // Basic CSV splitting by comma, ignoring commas in quotes would be better but this is a simple fallback
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+        setCsvHeaders(headers);
+        
+        const allData: CSVRow[] = [];
+        for (let i = 1; i < lines.length; i++) {
+          const values = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+          const row: CSVRow = {};
+          headers.forEach((header, index) => {
+            row[header] = values[index] || '';
+          });
+          allData.push(row);
+        }
+        
+        setAllParsedData(allData);
+        setPreviewData(allData.slice(0, 3));
+      }
       setIsParsing(false);
       setCurrentStep('map');
-    }, 1500);
+    };
+    reader.readAsText(uploadedFile);
   }, []);
 
-  const handleStartImport = useCallback(() => {
+  const handleStartImport = useCallback(async () => {
     setCurrentStep('progress');
-    setImportProgress(0);
+    setImportProgress(20);
     
-    const interval = setInterval(() => {
-      setImportProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setImportResult({ total: 150, success: 148, failed: 2 });
-            setCurrentStep('success');
-          }, 500);
-          return 100;
-        }
-        return prev + 15;
+    try {
+      const payload = allParsedData.map(row => {
+        const lead: any = {
+          status: defaultStatus,
+          tags: tags,
+        };
+        // Map CSV columns to Lead fields based on `mapping` state
+        Object.entries(mapping).forEach(([csvHeader, leadField]) => {
+          if (leadField && leadField !== 'ignore') {
+            lead[leadField] = row[csvHeader];
+          }
+        });
+        return lead;
       });
-    }, 400);
-  }, []);
+
+      setImportProgress(60);
+
+      const response = await apiFetch<{totalProcessed: number, successCount: number, errorCount: number}>('/import', {
+        method: 'POST',
+        body: JSON.stringify({
+          sourceType: 'CSV',
+          payload
+        })
+      });
+
+      setImportProgress(100);
+      setImportResult({ total: response.totalProcessed, success: response.successCount, failed: response.errorCount });
+      setCurrentStep('success');
+      
+      // Refresh the router to reload the lead list on navigation
+      router.refresh();
+      
+    } catch (err: any) {
+      console.error('Import failed', err);
+      alert('Import failed: ' + err.message);
+      setCurrentStep('map'); // go back on error
+    }
+  }, [allParsedData, mapping, defaultStatus, tags, router]);
 
   return {
     currentStep,
