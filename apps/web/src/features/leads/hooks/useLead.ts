@@ -6,11 +6,8 @@ import {
   LeadTask,
   LeadCampaignHistory,
 } from '../../../lib/api/leads.service';
-import {
-  LEAD_ACTIVITIES_MOCK,
-  LEAD_CAMPAIGNS_MOCK,
-} from '../../../mocks/lead-details';
 import { TasksService } from '../../../lib/api/tasks.service';
+import { toast } from 'sonner';
 
 export function useLead(id: string) {
   const [lead, setLead] = useState<DetailedLead | null>(null);
@@ -28,16 +25,21 @@ export function useLead(id: string) {
       try {
         const data = await LeadsService.getLead(id);
         if (!mounted) return;
-        setLead(data as any); // Cast for now until detailed lead type is unified
-        // Keep mock data for activities and campaigns since no backend APIs yet
-        setActivities(LEAD_ACTIVITIES_MOCK);
-        setCampaigns(LEAD_CAMPAIGNS_MOCK);
-        
-        // Fetch actual tasks
-        const realTasks = await TasksService.getTasks({ leadId: id });
-        setTasks(realTasks as any);
-      } catch (err: any) {
-        if (mounted) setError(err);
+        setLead(data as unknown as DetailedLead); // Cast for now until detailed lead type is unified
+        // Fetch actual tasks, activities, and campaigns
+        const [realTasks, realActivities, realCampaigns] = await Promise.all([
+          TasksService.getTasks({ leadId: id }),
+          LeadsService.getActivities(id),
+          LeadsService.getCampaigns(id)
+        ]);
+
+        if (!mounted) return;
+        setActivities(realActivities);
+        setCampaigns(realCampaigns);
+        setTasks(realTasks as unknown as LeadTask[]);
+      } catch (err: unknown) {
+        if (mounted) setError(err as Error);
+        toast.error('Failed to fetch lead details');
       } finally {
         if (mounted) setIsLoading(false);
       }

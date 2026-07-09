@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, UserRole } from '../../../lib/api/users.service';
-import { User as UserIcon, Trash2, Mail } from 'lucide-react';
+import { User as UserIcon, Trash2 } from 'lucide-react';
 import clsx from 'clsx';
 
 interface TeamTableProps {

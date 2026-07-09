@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CrmTask, TasksService, TaskStatus } from '../../../lib/api/tasks.service';
+import { toast } from 'sonner';
 
 export type ViewMode = 'list' | 'kanban' | 'calendar';
 
@@ -30,8 +31,10 @@ export function useTasks() {
     try {
       const updated = await TasksService.updateTask(id, { status });
       setTasks(prev => prev.map(t => t.id === id ? { ...t, status: updated.status } : t));
+      toast.success(`Task marked as ${status}`);
     } catch (err) {
       console.error('Failed to update task status', err);
+      toast.error('Failed to update task status');
     }
   };
 

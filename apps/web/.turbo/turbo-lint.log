@@ -3,52 +3,68 @@
 > eslint
 
 
+D:\Git Repo\injaazh-lead-ai\apps\web\src\app\(app)\leads\[id]\edit\page.tsx
+  35:31  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  61:53  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
 D:\Git Repo\injaazh-lead-ai\apps\web\src\app\(app)\leads\[id]\page.tsx
-  4:21  warning  'useRouter' is defined but never used  @typescript-eslint/no-unused-vars
+  77:74  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\app\(app)\leads\new\page.tsx
+  27:49  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\app\(app)\leads\page.tsx
+  47:16  warning  'err' is defined but never used    @typescript-eslint/no-unused-vars
+  63:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\app\(app)\sequences\page.tsx
+  32:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\app\(app)\sequences\page.tsx:32:5
+  30 |
+  31 |   useEffect(() => {
+> 32 |     fetchSequences();
+     |     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  33 |   }, []);
+  34 |
+  35 |   const handleDelete = async (id: string) => {  react-hooks/set-state-in-effect
+  41:16  warning  'err' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
 
 D:\Git Repo\injaazh-lead-ai\apps\web\src\app\(app)\settings\prompts\builder\page.tsx
   10:16  warning  'History' is defined but never used  @typescript-eslint/no-unused-vars
 
 D:\Git Repo\injaazh-lead-ai\apps\web\src\app\login\page.tsx
-  20:19  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
-  68:17  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\app\register\page.tsx
-  29:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\components\app-shell\AiDrawer.tsx
-  43:18  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\components\app-shell\Sidebar.tsx
-  4:50  warning  'HelpCircle' is defined but never used  @typescript-eslint/no-unused-vars
-  4:62  warning  'Zap' is defined but never used         @typescript-eslint/no-unused-vars
+  1:0  error  Parsing error: Expression expected
 
 D:\Git Repo\injaazh-lead-ai\apps\web\src\context\AuthContext.tsx
-  20:17  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
-  21:20  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
   31:9   warning  'pathname' is assigned a value but never used  @typescript-eslint/no-unused-vars
   38:17  warning  'userData' is assigned a value but never used  @typescript-eslint/no-unused-vars
-  61:37  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
-  86:33  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\analytics\components\AITab.tsx
+  3:10  warning  'AnalyticsService' is defined but never used  @typescript-eslint/no-unused-vars
 
 D:\Git Repo\injaazh-lead-ai\apps\web\src\features\analytics\components\CampaignsTab.tsx
-  21:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  3:10  warning  'AnalyticsService' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\analytics\components\EmailsTab.tsx
+  3:10  warning  'AnalyticsService' is defined but never used  @typescript-eslint/no-unused-vars
 
 D:\Git Repo\injaazh-lead-ai\apps\web\src\features\analytics\components\LeadsTab.tsx
-  22:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  3:10  warning  'AnalyticsService' is defined but never used  @typescript-eslint/no-unused-vars
 
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\campaigns\components\wizard\StepReview.tsx
-   14:22  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
-   15:23  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
-   16:22  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
-  109:56  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\billing\hooks\useBilling.ts
+  2:10  warning  'apiFetch' is defined but never used      @typescript-eslint/no-unused-vars
+  3:20  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\dashboard\components\AiInsightStrip.tsx
-  38:17  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
-  38:32  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\dashboard\components\LeadPipeline.tsx
-  11:19  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\campaigns\components\CampaignPickerModal.tsx
+  21:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
 
 Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
 * Update external systems with the latest state from React.
@@ -56,112 +72,36 @@ Effects are intended to synchronize state between React and external systems suc
 
 Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
 
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\dashboard\components\LeadPipeline.tsx:11:19
-   9 | export function LeadPipeline() {
-  10 |   const [mounted, setMounted] = useState(false);
-> 11 |   useEffect(() => setMounted(true), []);
-     |                   ^^^^^^^^^^ Avoid calling setState() directly within an effect
-  12 |
-  13 |   return (
-  14 |     <div className="col-span-12 lg:col-span-6 bg-card border border-border rounded-xl p-6 h-[320px] flex flex-col">  react-hooks/set-state-in-effect
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\campaigns\components\CampaignPickerModal.tsx:21:7
+  19 |   useEffect(() => {
+  20 |     if (isOpen) {
+> 21 |       setLoading(true);
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  22 |       CampaignsService.getCampaigns()
+  23 |         .then((data) => {
+  24 |           setCampaigns(data);  react-hooks/set-state-in-effect
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\campaigns\components\CampaignsTable.tsx
+  5:10  warning  'ProgressBar' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\companies\hooks\useCompany.ts
+   3:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  29:16  warning  'err' is defined but never used           @typescript-eslint/no-unused-vars
 
 D:\Git Repo\injaazh-lead-ai\apps\web\src\features\dashboard\components\RecentActivity.tsx
-  24:27  warning  'i' is defined but never used  @typescript-eslint/no-unused-vars
+  16:9   warning  '_renderGroup' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  25:27  warning  'i' is defined but never used                      @typescript-eslint/no-unused-vars
 
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\leads\components\BulkActionsBar.tsx
-  3:8  warning  'clsx' is defined but never used  @typescript-eslint/no-unused-vars
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\inbox\components\ThreadSidebar.tsx
+  14:10  warning  'teamMembers' is assigned a value but never used  @typescript-eslint/no-unused-vars
 
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\leads\components\LeadActivityFeed.tsx
-  70:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\integrations\hooks\useIntegrations.ts
+  3:20  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\leads\components\LeadProfileHeader.tsx
-  3:39  warning  'User' is defined but never used  @typescript-eslint/no-unused-vars
+D:\Git Repo\injaazh-lead-ai\apps\web\src\features\prompts\hooks\usePromptBuilder.ts
+  79:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+  90:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
 
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\leads\components\LeadsTable.tsx
-   2:10  warning  'MoreHorizontal' is defined but never used  @typescript-eslint/no-unused-vars
-  65:18  warning  'lead' is defined but never used            @typescript-eslint/no-unused-vars
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\leads\hooks\useLeads.ts
-   3:24  warning  'LeadsFilters' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
-  13:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
-
-Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
-* Update external systems with the latest state from React.
-* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
-
-Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\leads\hooks\useLeads.ts:13:5
-  11 |   useEffect(() => {
-  12 |     let isMounted = true;
-> 13 |     setLoading(true);
-     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
-  14 |
-  15 |     const fetchLeads = async () => {
-  16 |       try {  react-hooks/set-state-in-effect
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\organization\components\OrgProfileSection.tsx
-  15:7  error    Error: Calling setState synchronously within an effect can trigger cascading renders
-
-Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
-* Update external systems with the latest state from React.
-* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
-
-Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\organization\components\OrgProfileSection.tsx:15:7
-  13 |   useEffect(() => {
-  14 |     if (currentName !== name) {
-> 15 |       setName(currentName);
-     |       ^^^^^^^ Avoid calling setState() directly within an effect
-  16 |     }
-  17 |   }, [currentName]);
-  18 |  react-hooks/set-state-in-effect
-  17:6  warning  React Hook useEffect has a missing dependency: 'name'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\profile\components\PersonalInfoSection.tsx
-  20:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
-
-Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
-* Update external systems with the latest state from React.
-* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
-
-Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\profile\components\PersonalInfoSection.tsx:20:5
-  18 |
-  19 |   useEffect(() => {
-> 20 |     setFormData({
-     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
-  21 |       firstName: profile.firstName,
-  22 |       lastName: profile.lastName,
-  23 |       email: profile.email  react-hooks/set-state-in-effect
-  51:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @next/next/no-img-element
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\profile\hooks\useProfile.ts
-  20:27  warning  'current' is defined but never used  @typescript-eslint/no-unused-vars
-  20:44  warning  'newPass' is defined but never used  @typescript-eslint/no-unused-vars
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\workflows\components\builder\AddNodeMenu.tsx
-  30:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\workflows\components\builder\NodeConfigSidebar.tsx
-   8:56  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
-  86:93  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\workflows\components\builder\WorkflowNodeCard.tsx
-  14:27  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\workflows\hooks\useWorkflowBuilder.ts
-  35:77  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-D:\Git Repo\injaazh-lead-ai\apps\web\src\features\workflows\types.ts
-   9:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-  19:26  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-D:\Git Repo\injaazh-lead-ai\apps\web\tailwind.config.ts
-  86:13  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
-
-✖ 45 problems (28 errors, 17 warnings)
+✖ 29 problems (11 errors, 18 warnings)
 
  ELIFECYCLE  Command failed with exit code 1.

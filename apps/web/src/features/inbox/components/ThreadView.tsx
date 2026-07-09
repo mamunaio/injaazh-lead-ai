@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmailThread } from '../../../mocks/inbox';
+import { EmailThread } from '../../../lib/api/inbox.service';
 import { ReplyComposer } from './ReplyComposer';
 import { User, CornerUpLeft } from 'lucide-react';
 import clsx from 'clsx';
@@ -57,7 +57,7 @@ export function ThreadView({ thread }: ThreadViewProps) {
           <CornerUpLeft className="w-4 h-4 text-primary" />
           Reply
         </div>
-        <ReplyComposer onSend={(_text) => { /* Simulate reply */ }} />
+        <ReplyComposer onSend={(text) => { console.log('Simulate sending reply:', text); }} />
       </div>
     </div>
   );

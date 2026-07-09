@@ -6,43 +6,19 @@
 - Environments: .env.local, .env.production
 
   Creating an optimized production build ...
-✓ Compiled successfully in 8.7s
+✓ Compiled successfully in 10.2s
   Running TypeScript ...
-  Finished TypeScript in 5.8s ...
-  Collecting page data using 5 workers ...
-  Generating static pages using 5 workers (0/23) ...
-  Generating static pages using 5 workers (5/23) 
-  Generating static pages using 5 workers (11/23) 
-  Generating static pages using 5 workers (17/23) 
-✓ Generating static pages using 5 workers (23/23) in 802ms
-  Finalizing page optimization ...
+Failed to type check.
 
-Route (app)
-┌ ○ /
-├ ○ /_not-found
-├ ○ /analytics
-├ ƒ /api/health
-├ ○ /campaigns
-├ ○ /campaigns/new
-├ ƒ /companies/[id]
-├ ○ /crm/tasks
-├ ○ /dashboard
-├ ○ /inbox
-├ ○ /leads
-├ ƒ /leads/[id]
-├ ○ /leads/import
-├ ○ /login
-├ ○ /register
-├ ○ /sequences/new
-├ ○ /settings/billing
-├ ○ /settings/integrations
-├ ○ /settings/organization
-├ ○ /settings/profile
-├ ○ /settings/prompts/builder
-├ ○ /settings/team
-└ ○ /workflows/new
+./src/app/(app)/leads/new/page.tsx:31:16
+Type error: 'err' is of type 'unknown'.
 
-
-○  (Static)   prerendered as static content
-ƒ  (Dynamic)  server-rendered on demand
-
+  [90m29 |[0m       router.refresh();
+  [90m30 |[0m     } [36mcatch[0m (err: unknown) {
+[31m[1m>[0m [90m31 |[0m       setError(err.message || [32m'Failed to create lead'[0m);
+  [90m   |[0m                [31m[1m^[0m
+  [90m32 |[0m       setLoading([36mfalse[0m);
+  [90m33 |[0m     }
+  [90m34 |[0m   };
+Next.js build worker exited with code: 1 and signal: null
+ ELIFECYCLE  Command failed with exit code 1.

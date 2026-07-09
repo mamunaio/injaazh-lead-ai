@@ -1,5 +1,5 @@
 import React from 'react';
-import { WORKFLOW_NODE_TEMPLATES } from '../../../../mocks/workflow-nodes';
+const WORKFLOW_NODE_TEMPLATES: unknown[] = [];
 import { WorkflowNodeTemplate } from '../../types';
 import * as Icons from 'lucide-react';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChartWidget } from './ChartWidget';
-import { TIME_SERIES_DATA } from '../../../mocks/analytics';
+import { AnalyticsService } from '../../../lib/api/analytics.service';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 export function EmailsTab() {
@@ -8,7 +8,7 @@ export function EmailsTab() {
     <div className="flex flex-col gap-6">
       <ChartWidget title="Email Delivery Performance">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={TIME_SERIES_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <BarChart data={[]} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
             <XAxis dataKey="date" stroke="#737373" fontSize={12} tickLine={false} axisLine={false} />
             <YAxis stroke="#737373" fontSize={12} tickLine={false} axisLine={false} />

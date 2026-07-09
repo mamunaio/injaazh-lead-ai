@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ChevronLeft, ChevronRight, LayoutDashboard, Users, Megaphone, 
-  Repeat, Sparkles, LineChart, Layers, Settings, HelpCircle, Zap,
-  LogOut
+  Repeat, Sparkles, LineChart, Layers, Settings, LogOut
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Link from 'next/link';

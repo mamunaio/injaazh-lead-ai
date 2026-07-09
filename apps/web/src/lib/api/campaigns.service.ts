@@ -39,6 +39,14 @@ export const CampaignsService = {
     });
   },
 
+  getSegments: async (): Promise<unknown[]> => {
+    return apiFetch<unknown[]>('/campaigns/segments').catch(() => []);
+  },
+
+  getAccounts: async (): Promise<unknown[]> => {
+    return apiFetch<unknown[]>('/campaigns/accounts').catch(() => []);
+  },
+
   enrollLeads: async (campaignId: string, leadIds: string[]): Promise<{ enrolled: number }> => {
     return apiFetch<{ enrolled: number }>(`/campaigns/${campaignId}/enroll`, {
       method: 'POST',

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MetricCard } from './MetricCard';
 import { ChartWidget } from './ChartWidget';
-import { TIME_SERIES_DATA } from '../../../mocks/analytics';
-import { AnalyticsService, DashboardMetrics } from '../../../lib/api/analytics.service';
+import { DashboardMetrics } from '../../../lib/api/analytics.service';
 import { Users, Mail, MousePointerClick, TrendingUp } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -34,7 +33,7 @@ export function OverviewTab() {
 
       <ChartWidget title="Engagement Trend">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={TIME_SERIES_DATA}>
+          <AreaChart data={[]}>
             <defs>
               <linearGradient id="colorOpened" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Campaign, CampaignStatus, CampaignsService } from '../../../lib/api/campaigns.service';
+import { toast } from 'sonner';
 
 export function useCampaigns() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -43,8 +44,10 @@ export function useCampaigns() {
       setCampaigns((prev) => 
         prev.map((c) => (c.id === id ? { ...c, status: updated.status } : c))
       );
+      toast.success(`Campaign status updated to ${status}`);
     } catch (err) {
       console.error('Failed to update status', err);
+      toast.error('Failed to update campaign status');
     } finally {
       setActionLoading(null);
     }
@@ -55,8 +58,10 @@ export function useCampaigns() {
     try {
       await CampaignsService.deleteCampaign(id);
       setCampaigns((prev) => prev.filter((c) => c.id !== id));
+      toast.success('Campaign deleted');
     } catch (err) {
       console.error('Failed to delete campaign', err);
+      toast.error('Failed to delete campaign');
     } finally {
       setActionLoading(null);
     }

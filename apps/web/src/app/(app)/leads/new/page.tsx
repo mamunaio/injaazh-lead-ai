@@ -27,8 +27,8 @@ export default function NewLeadPage() {
       await LeadsService.createLead(formData as any);
       router.push('/leads');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || 'Failed to create lead');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to create lead');
       setLoading(false);
     }
   };

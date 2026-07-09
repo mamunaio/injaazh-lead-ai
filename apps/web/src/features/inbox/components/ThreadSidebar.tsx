@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { EmailThread, MOCK_TEAM_MEMBERS } from '../../../mocks/inbox';
+import React, { useState, useEffect } from 'react';
+import { EmailThread, InboxService, TeamMember } from '../../../lib/api/inbox.service';
 import { Tag, UserPlus, StickyNote, Plus } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -11,6 +11,11 @@ interface ThreadSidebarProps {
 
 export function ThreadSidebar({ thread, onAssign, onAddNote }: ThreadSidebarProps) {
   const [newNote, setNewNote] = useState('');
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+
+  useEffect(() => {
+    InboxService.getTeamMembers().then(setTeamMembers);
+  }, []);
   
   return (
     <div className="w-[300px] h-full border-l border-border bg-card overflow-y-auto flex flex-col">

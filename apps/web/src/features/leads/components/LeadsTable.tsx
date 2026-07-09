@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { MoreHorizontal, Edit2, Trash2, Users } from 'lucide-react';
+import Link from 'next/link';
+import { Edit2, Trash2, Users } from 'lucide-react';
 import { Lead } from '../../../lib/api/leads.service';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
 import { ScoreBadge } from '../../../components/ui/ScoreBadge';
@@ -76,7 +77,7 @@ export function LeadsTable({ leads, loading, selectedIds, onToggleSelect, onTogg
         </div>
       ),
     }
-  ], []);
+  ], [onEdit, onDelete]);
 
   const emptyState = (
     <>
@@ -89,9 +90,9 @@ export function LeadsTable({ leads, loading, selectedIds, onToggleSelect, onTogg
         <button className="h-9 px-4 inline-flex items-center justify-center gap-2 bg-secondary hover:bg-accent text-foreground text-[0.875rem] font-medium rounded-md border border-border transition-colors">
           Import CSV
         </button>
-        <a href="/leads/new" className="h-9 px-4 inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-[0.875rem] font-medium rounded-md shadow-sm transition-colors">
+        <Link href="/leads/new" className="h-9 px-4 inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-[0.875rem] font-medium rounded-md shadow-sm transition-colors">
           Add Lead
-        </a>
+        </Link>
       </div>
     </>
   );

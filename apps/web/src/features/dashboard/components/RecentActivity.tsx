@@ -1,7 +1,7 @@
 import React from 'react';
 import { MessageSquare, Eye, CheckCircle, Upload, Sparkles, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { ACTIVITY_TODAY_MOCK_DATA, ACTIVITY_YESTERDAY_MOCK_DATA } from '../../../mocks/dashboard';
+
 
 const ICON_MAP: Record<string, React.ElementType> = {
   MessageSquare,
@@ -12,7 +12,8 @@ const ICON_MAP: Record<string, React.ElementType> = {
 };
 
 export function RecentActivity() {
-  const renderGroup = (label: string, items: typeof ACTIVITY_TODAY_MOCK_DATA) => (
+  
+  const _renderGroup = (label: string, items: unknown[]) => (
     <div className="mb-4">
       <div className="flex items-center mb-2">
         <div className="flex-1 h-px bg-border" />
@@ -73,8 +74,8 @@ export function RecentActivity() {
       </div>
 
       <div className="flex-1 overflow-y-auto no-scrollbar">
-        {renderGroup('Today', ACTIVITY_TODAY_MOCK_DATA)}
-        {renderGroup('Yesterday', ACTIVITY_YESTERDAY_MOCK_DATA)}
+        
+        
         
         <button className="w-full py-2 text-[0.875rem] text-tertiary hover:text-secondary-foreground transition-colors mt-2">
           Load 10 more activities ↓

@@ -17,8 +17,8 @@ export default function LoginPage() {
     
     try {
       await login({ email, password });
-    } catch (err: any) {
-      setError(err.message || 'Failed to login');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to login');
     }
   };
 

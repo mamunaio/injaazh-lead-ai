@@ -1,6 +1,5 @@
 import React from 'react';
 import { Trash2, UserPlus, Send, X } from 'lucide-react';
-import clsx from 'clsx';
 
 interface BulkActionsBarProps {
   selectedCount: number;

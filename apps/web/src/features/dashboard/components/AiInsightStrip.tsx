@@ -1,8 +1,16 @@
+'use client';
+
 import React from 'react';
 import { Sparkles, ArrowRight } from 'lucide-react';
-import { AI_INSIGHTS_MOCK_DATA } from '../../../mocks/dashboard';
+import { DashboardService } from '../../../lib/api/dashboard.service';
+import { useState, useEffect } from 'react';
 
 export function AiInsightStrip() {
+  const [insights, setInsights] = useState<unknown[]>([]);
+
+  useEffect(() => {
+    DashboardService.getAiInsights().then(setInsights);
+  }, []);
   return (
     <div className="col-span-12 lg:col-span-4 bg-card border border-border rounded-xl p-6 h-[280px] flex flex-col">
       <div className="flex items-center justify-between mb-4">
@@ -16,7 +24,7 @@ export function AiInsightStrip() {
       </div>
 
       <div className="flex-1 overflow-y-auto flex flex-col no-scrollbar">
-        {AI_INSIGHTS_MOCK_DATA.map((item, i) => (
+        {insights.map((item, i) => (
           <div key={item.id}>
             {i !== 0 && <div className="h-px w-full bg-border my-3" />}
             <div className="flex justify-between items-start mb-1.5">
@@ -35,7 +43,7 @@ export function AiInsightStrip() {
             </div>
             <div className="pl-9 pr-2">
               <div className="text-[0.75rem] text-secondary-foreground italic truncate">
-                "{item.insight}"
+                &quot;{item.insight}&quot;
               </div>
               <button className="text-[0.75rem] text-primary flex items-center gap-1 mt-1 hover:underline">
                 <ArrowRight className="w-3 h-3" /> {item.action}

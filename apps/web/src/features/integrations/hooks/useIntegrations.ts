@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { MOCK_INTEGRATIONS, Integration } from '../../../mocks/integrations';
+import { apiFetch } from '../../../lib/api';
+type Integration = any;
 
 export function useIntegrations() {
-  const [integrations, setIntegrations] = useState<Integration[]>(MOCK_INTEGRATIONS);
+  const [integrations, setIntegrations] = useState<Integration[]>([]);
+  useEffect(() => {
+    apiFetch('/integrations').then(setIntegrations).catch(() => {});
+  }, []);
   const [actionInProgress, setActionInProgress] = useState<string | null>(null);
 
   const toggleConnection = (id: string) => {

@@ -1,9 +1,17 @@
-import { useState } from 'react';
-import { MOCK_THREADS, EmailThread } from '../../../mocks/inbox';
+import { useState, useEffect } from 'react';
+import { InboxService, EmailThread } from '../../../lib/api/inbox.service';
 
 export function useInbox() {
-  const [threads, setThreads] = useState<EmailThread[]>(MOCK_THREADS);
-  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(MOCK_THREADS[0].id);
+  const [threads, setThreads] = useState<EmailThread[]>([]);
+  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
+
+
+  useEffect(() => {
+    InboxService.getThreads().then(data => {
+      setThreads(data);
+      if (data.length > 0) setSelectedThreadId(data[0].id);
+    });
+  }, []);
 
   const selectedThread = threads.find(t => t.id === selectedThreadId) || null;
 

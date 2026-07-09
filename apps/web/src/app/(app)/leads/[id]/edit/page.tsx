@@ -37,9 +37,9 @@ export default function EditLeadPage() {
             status: lead.status || 'New'
           });
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (isMounted) {
-          setError(err.message || 'Failed to fetch lead');
+          setError(err instanceof Error ? err.message : String(err) || 'Failed to fetch lead');
         }
       } finally {
         if (isMounted) {
@@ -61,8 +61,8 @@ export default function EditLeadPage() {
       await LeadsService.updateLead(id, formData as any);
       router.push('/leads');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || 'Failed to update lead');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to update lead');
       setLoading(false);
     }
   };

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Mail, MonitorSpeaker, ChevronRight } from 'lucide-react';
 import { GenerateEmailModal } from './GenerateEmailModal';
 
-export function LeadQuickActions({ leadId, initialOutreach }: { leadId: string, initialOutreach?: any }) {
+export function LeadQuickActions({ leadId, initialOutreach }: { leadId: string, initialOutreach?: Record<string, unknown> }) {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   return (

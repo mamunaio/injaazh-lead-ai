@@ -1,9 +1,19 @@
+'use client';
+
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { CAMPAIGN_STATS_MOCK_DATA, CAMPAIGNS_MOCK_DATA } from '../../../mocks/dashboard';
+import { DashboardService } from '../../../lib/api/dashboard.service';
+import { useState, useEffect } from 'react';
 
 export function CampaignSummary() {
+  const [stats, setStats] = useState<unknown>(null);
+  const [campaigns, setCampaigns] = useState<unknown[]>([]);
+
+  useEffect(() => {
+    DashboardService.getCampaignStats().then(setStats);
+    DashboardService.getCampaigns().then(setCampaigns);
+  }, []);
   return (
     <div className="col-span-12 lg:col-span-6 bg-card border border-border rounded-xl p-6 h-[320px] flex flex-col">
       <div className="flex items-center justify-between mb-4">
@@ -17,7 +27,7 @@ export function CampaignSummary() {
 
       <div className="flex-1 flex flex-col min-h-0">
         <div className="flex gap-2 mb-4 pb-4 border-b border-border overflow-x-auto no-scrollbar">
-          {CAMPAIGN_STATS_MOCK_DATA.map(s => (
+          {stats?.map(s => (
             <div key={s.label} className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full ${s.bg}`}>
               <span className={`text-[0.625rem] font-bold ${s.color}`}>{s.icon}</span>
               <span className={`text-[0.75rem] font-semibold ${s.color}`}>{s.count} {s.label}</span>
@@ -26,7 +36,7 @@ export function CampaignSummary() {
         </div>
 
         <div className="flex-1 overflow-y-auto no-scrollbar pr-1 flex flex-col gap-4">
-          {CAMPAIGNS_MOCK_DATA.map((camp, i) => (
+          {campaigns.map((camp, i) => (
             <Link key={camp.id} href={`/campaigns/${camp.id}`} className="group block rounded-md hover:bg-accent -mx-2 px-2 py-1 transition-colors">
               <div className="flex items-start justify-between mb-1">
                 <div>
@@ -55,7 +65,7 @@ export function CampaignSummary() {
                 <span className="font-mono text-foreground ml-1">Bounced {camp.bounced}</span>
               </div>
               
-              {i < CAMPAIGNS_MOCK_DATA.length - 1 && <div className="h-px w-full bg-border mt-3 mb-1 block group-hover:opacity-0" />}
+              {i < campaigns.length - 1 && <div className="h-px w-full bg-border mt-3 mb-1 block group-hover:opacity-0" />}
             </Link>
           ))}
         </div>

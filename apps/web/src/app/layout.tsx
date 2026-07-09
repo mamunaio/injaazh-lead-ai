@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: "Enterprise Lead Generation and Campaign Engine",
 };
 
+import { Toaster } from 'sonner';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,6 +31,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
+        <Toaster theme="dark" position="bottom-right" richColors />
       </body>
     </html>
   );

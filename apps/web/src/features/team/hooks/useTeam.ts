@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { User, UsersService, UserRole } from '../../../lib/api/users.service';
+import { toast } from 'sonner';
 
 export function useTeam() {
   const [members, setMembers] = useState<User[]>([]);
@@ -31,8 +32,10 @@ export function useTeam() {
     try {
       const updated = await UsersService.updateUser(id, { role });
       setMembers(prev => prev.map(m => m.id === id ? { ...m, role: updated.role } : m));
+      toast.success('Role updated successfully');
     } catch (err) {
       console.error('Failed to update role', err);
+      toast.error('Failed to update role');
     }
   };
 
@@ -40,14 +43,17 @@ export function useTeam() {
     try {
       await UsersService.deleteUser(id);
       setMembers(prev => prev.filter(m => m.id !== id));
+      toast.success('Member removed');
     } catch (err) {
       console.error('Failed to remove member', err);
+      toast.error('Failed to remove member');
     }
   };
 
   const inviteMember = async (email: string, role: UserRole) => {
     // In a real app this would call an invitations endpoint
     // For now we'll just log it or simulate
+    console.log(`Inviting ${email} as ${role}`);
     console.warn('Invite functionality not fully implemented on backend');
   };
 

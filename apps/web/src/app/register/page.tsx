@@ -26,8 +26,8 @@ export default function RegisterPage() {
     
     try {
       await register(formData);
-    } catch (err: any) {
-      setError(err.message || 'Failed to register');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to register');
     }
   };
 

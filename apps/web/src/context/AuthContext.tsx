@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { apiFetch } from '../lib/api';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface User {
   id: string;
@@ -17,8 +17,8 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (data: any) => Promise<void>;
-  register: (data: any) => Promise<void>;
+  login: (data: unknown) => Promise<void>;
+  register: (data: unknown) => Promise<void>;
   logout: () => void;
 }
 
@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const userData = await apiFetch<User>('/auth/me'); // We need to add /auth/me in backend if it doesn't exist, wait, the register returned only token. 
+          const userData = await apiFetch<User>('/users/me'); // We need to add /auth/me in backend if it doesn't exist, wait, the register returned only token. 
           // Let's assume we can fetch /auth/me or we just decode the token.
           // Since we don't have a reliable /auth/me yet, let's decode the JWT manually for now.
           const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loadUser();
   }, []);
 
-  const login = async (credentials: any) => {
+  const login = async (credentials: unknown) => {
     setIsLoading(true);
     try {
       const response = await apiFetch<{ access_token: string }>('/auth/login', {
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const register = async (data: any) => {
+  const register = async (data: unknown) => {
     setIsLoading(true);
     try {
       const response = await apiFetch<{ access_token: string }>('/auth/register', {

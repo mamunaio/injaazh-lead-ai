@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useLead } from '../../../../features/leads/hooks/useLead';
 import { LeadProfileHeader } from '../../../../features/leads/components/LeadProfileHeader';
 import { LeadTabs, TabValue } from '../../../../features/leads/components/LeadTabs';

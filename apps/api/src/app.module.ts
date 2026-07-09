@@ -29,6 +29,8 @@ import { CrmModule } from './modules/crm/crm.module';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { NotesModule } from './modules/notes/notes.module';
 import { SegmentsModule } from './modules/segments/segments.module';
+import { HealthModule } from './modules/health/health.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -45,6 +47,10 @@ import { SegmentsModule } from './modules/segments/segments.module';
       }),
       inject: [ConfigService],
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 100, // 100 requests per minute per IP
+    }]),
     AuthModule,
     OrganizationsModule,
     UsersModule,
@@ -68,6 +74,7 @@ import { SegmentsModule } from './modules/segments/segments.module';
     TasksModule,
     NotesModule,
     SegmentsModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

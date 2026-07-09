@@ -22,40 +22,29 @@ interface GenerateEmailModalProps {
 
 export function GenerateEmailModal({ isOpen, onClose, leadId, initialOutreach }: GenerateEmailModalProps) {
   const [loading, setLoading] = useState(false);
-  const [outreachData, setOutreachData] = useState<AiOutreachData | null>(null);
+  const [outreachData, setOutreachData] = useState<AiOutreachData | null>(initialOutreach || null);
   const [copied, setCopied] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      if (initialOutreach && !outreachData) {
-        setOutreachData(initialOutreach);
-      } else if (!outreachData) {
-        generateEmail();
-      }
-    }
-  }, [isOpen]);
-
-  const pollForOutreach = async (previousData?: AiOutreachData | null) => {
+  const pollForOutreach = React.useCallback(async (previousData?: AiOutreachData | null) => {
     let attempts = 0;
     while (attempts < 30) {
       await new Promise(res => setTimeout(res, 1000));
       try {
         const lead = await LeadsService.getLead(leadId);
-        const newOutreach = (lead as any).aiOutreach;
-        // Check if outreach is updated (for simplicity we can just check if it's different or just exists if previous was null)
+        const newOutreach = (lead as Record<string, unknown>).aiOutreach as AiOutreachData;
         if (newOutreach && JSON.stringify(newOutreach) !== JSON.stringify(previousData)) {
           return newOutreach;
         }
-      } catch (err) {
-        // ignore
+      } catch (err: unknown) {
+        console.error('Polling error:', err);
       }
       attempts++;
     }
     throw new Error('Generation timed out.');
-  };
+  }, [leadId]);
 
-  const generateEmail = async () => {
+  const generateEmail = React.useCallback(async () => {
     setLoading(true);
     try {
       const prevData = outreachData;
@@ -65,12 +54,19 @@ export function GenerateEmailModal({ isOpen, onClose, leadId, initialOutreach }:
       });
       const newData = await pollForOutreach(prevData);
       setOutreachData(newData);
-    } catch (err) {
+    } catch (err: unknown) {
+      console.error(err);
       alert('Failed to generate email. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
+  }, [leadId, outreachData, pollForOutreach]);
+
+  useEffect(() => {
+    if (isOpen && !initialOutreach && !outreachData) {
+      setTimeout(() => generateEmail(), 0);
+    }
+  }, [isOpen, initialOutreach, outreachData, generateEmail]);
 
   const handleCopy = () => {
     if (!outreachData) return;
@@ -83,9 +79,10 @@ export function GenerateEmailModal({ isOpen, onClose, leadId, initialOutreach }:
   const handleSave = async () => {
     setSaving(true);
     try {
-      await LeadsService.updateLead(leadId, { aiOutreach: outreachData } as any);
+      await LeadsService.updateLead(leadId, { aiOutreach: outreachData } as Record<string, unknown>);
       onClose();
-    } catch (err) {
+    } catch (err: unknown) {
+      console.error(err);
       alert('Failed to save email content.');
     } finally {
       setSaving(false);

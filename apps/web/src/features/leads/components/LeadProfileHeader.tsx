@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Edit2, Trash2, ChevronRight, User } from 'lucide-react';
+import { Edit2, Trash2, ChevronRight } from 'lucide-react';
 import { DetailedLead } from '../../../lib/api/leads.service';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
 

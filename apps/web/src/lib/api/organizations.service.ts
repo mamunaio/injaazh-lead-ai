@@ -1,4 +1,4 @@
-import { apiFetch } from './index';
+import { apiFetch } from '../api';
 
 export interface Organization {
   id: string;

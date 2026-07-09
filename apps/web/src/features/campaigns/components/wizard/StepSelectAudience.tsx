@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { CampaignWizardState } from '../../hooks/useCampaignWizard';
-import { Segment, SEGMENTS_MOCK_DATA } from '../../../../mocks/segments';
+import { CampaignsService } from '../../../../lib/api/campaigns.service';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Users } from 'lucide-react';
 
@@ -10,10 +11,9 @@ interface StepSelectAudienceProps {
 }
 
 export function StepSelectAudience({ formData, updateFormData }: StepSelectAudienceProps) {
-  const [segments, setSegments] = useState<Segment[]>([]);
-
+  const [segments, setSegments] = useState<unknown[]>([]);
   useEffect(() => {
-    setSegments(SEGMENTS_MOCK_DATA);
+    CampaignsService.getSegments().then(setSegments);
   }, []);
 
   const selectedSegment = segments.find(s => s.id === formData.segmentId);

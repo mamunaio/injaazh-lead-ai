@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChartWidget } from './ChartWidget';
-import { LEAD_SOURCES } from '../../../mocks/analytics';
+import { AnalyticsService } from '../../../lib/api/analytics.service';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 export function LeadsTab() {
@@ -10,7 +10,7 @@ export function LeadsTab() {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
-              data={LEAD_SOURCES}
+              data={[]}
               cx="50%"
               cy="50%"
               innerRadius={80}
@@ -19,7 +19,7 @@ export function LeadsTab() {
               dataKey="value"
               stroke="none"
             >
-              {LEAD_SOURCES.map((entry: any, index: number) => (
+              {LEAD_SOURCES.map((entry: unknown, index: number) => (
                 <Cell key={`cell-${index}`} fill={entry.fill} />
               ))}
             </Pie>

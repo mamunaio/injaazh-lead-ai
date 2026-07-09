@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChartWidget } from './ChartWidget';
-import { AI_PERFORMANCE } from '../../../mocks/analytics';
+import { AnalyticsService } from '../../../lib/api/analytics.service';
 
 export function AITab() {
   return (

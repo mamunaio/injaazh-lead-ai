@@ -1,4 +1,4 @@
-import { apiFetch } from './index';
+import { apiFetch } from '../api';
 
 export type LeadStatus = 'New' | 'Contacted' | 'Qualified' | 'Won' | 'Lost';
 
@@ -110,5 +110,13 @@ export const LeadsService = {
     return apiFetch<void>(`/leads/${id}`, {
       method: 'DELETE',
     });
+  },
+  
+  getActivities: async (id: string): Promise<LeadActivity[]> => {
+    return apiFetch<LeadActivity[]>(`/timeline?leadId=${id}`).catch(() => []);
+  },
+
+  getCampaigns: async (id: string): Promise<LeadCampaignHistory[]> => {
+    return apiFetch<LeadCampaignHistory[]>(`/leads/${id}/campaigns`).catch(() => []);
   }
 };

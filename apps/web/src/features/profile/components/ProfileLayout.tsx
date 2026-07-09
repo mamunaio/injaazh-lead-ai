@@ -3,11 +3,13 @@ import { useProfile } from '../hooks/useProfile';
 import { PersonalInfoSection } from './PersonalInfoSection';
 import { SecuritySection } from './SecuritySection';
 
+import { PageLoader } from '../../../components/ui/PageLoader';
+
 export function ProfileLayout() {
   const { profile, loading, saveStatus, passwordStatus, updateProfile, changePassword } = useProfile();
 
   if (loading || !profile) {
-    return <div className="p-6">Loading profile...</div>;
+    return <PageLoader message="Loading profile..." />;
   }
 
   return (

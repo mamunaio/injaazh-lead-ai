@@ -2,6 +2,7 @@ import React from 'react';
 import { LeadActivity } from '../../../lib/api/leads.service';
 import { Mail, FileText, CheckCircle2, Clock } from 'lucide-react';
 import clsx from 'clsx';
+import Image from 'next/image';
 
 interface LeadActivityFeedProps {
   activities: LeadActivity[];
@@ -67,7 +68,7 @@ export function LeadActivityFeed({ activities }: LeadActivityFeedProps) {
               </p>
               <div className="flex items-center gap-2">
                 {activity.author.avatar ? (
-                  <img src={activity.author.avatar} alt={activity.author.name} className="w-5 h-5 rounded-full" loading="lazy" />
+                  <Image src={activity.author.avatar} alt={activity.author.name} width={20} height={20} className="rounded-full" unoptimized />
                 ) : (
                   <div className="w-5 h-5 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center text-[0.625rem] font-bold">
                     {activity.author.name.charAt(0)}

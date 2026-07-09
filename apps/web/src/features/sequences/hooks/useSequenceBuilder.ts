@@ -7,6 +7,7 @@ import {
   fromApiSteps,
   SequenceStepType,
 } from '../../../lib/api/sequences.service';
+import { toast } from 'sonner';
 
 // Re-export so builder components can import from this hook
 export type { UiStep as SequenceStep, SequenceStepType };
@@ -29,21 +30,24 @@ export function useSequenceBuilder(initialSequenceId?: string) {
   // Load existing sequence for edit mode
   useEffect(() => {
     if (!initialSequenceId) return;
-    setIsLoading(true);
-    SequencesService.getSequence(initialSequenceId)
-      .then(seq => {
+    const fetchSeq = async () => {
+      setIsLoading(true);
+      try {
+        const seq = await SequencesService.getSequence(initialSequenceId);
         setName(seq.name);
         setStopOnReply(seq.stopOnReply);
         const uiSteps = seq.steps && seq.steps.length > 0
           ? fromApiSteps(seq.steps)
           : [{ _key: crypto.randomUUID(), type: 'EMAIL' as SequenceStepType, promptTemplateId: '' }];
         setSteps(uiSteps);
+      } catch (err: unknown) {
+        const error = err as Error;
+        setError(error instanceof Error ? error.message : String(error) || 'Failed to load sequence');
+      } finally {
         setIsLoading(false);
-      })
-      .catch(err => {
-        setError(err.message || 'Failed to load sequence');
-        setIsLoading(false);
-      });
+      }
+    };
+    fetchSeq();
   }, [initialSequenceId]);
 
   const addEmailStep = useCallback(() => {
@@ -90,16 +94,16 @@ export function useSequenceBuilder(initialSequenceId?: string) {
 
       if (initialSequenceId) {
         await SequencesService.updateSequence(initialSequenceId, payload);
-        setSuccessMessage('Sequence updated successfully.');
+        toast.success('Sequence updated successfully.');
       } else {
         await SequencesService.createSequence(payload);
-        setSuccessMessage('Sequence created successfully.');
+        toast.success('Sequence created successfully.');
       }
 
       setIsSaving(false);
       router.push('/sequences');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save sequence.');
+      toast.error(err instanceof Error ? err.message : 'Failed to save sequence.');
       setIsSaving(false);
     }
   }, [name, steps, stopOnReply, initialSequenceId, router]);

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { User as UserProfile } from '../../../lib/api/users.service';
-import Image from 'next/image';
 import { User } from 'lucide-react';
 import clsx from 'clsx';
 

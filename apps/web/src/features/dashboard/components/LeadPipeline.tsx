@@ -4,11 +4,21 @@ import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { PIPELINE_FUNNEL_MOCK_DATA, PIPELINE_TOP_LEADS_MOCK_DATA } from '../../../mocks/dashboard';
+import { DashboardService } from '../../../lib/api/dashboard.service';
 
 export function LeadPipeline() {
+  const [funnel, setFunnel] = useState<unknown[]>([]);
+  const [topLeads, setTopLeads] = useState<unknown[]>([]);
+
+  useEffect(() => {
+    DashboardService.getPipelineFunnel().then(setFunnel);
+    DashboardService.getPipelineTopLeads().then(setTopLeads);
+  }, []);
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="col-span-12 lg:col-span-6 bg-card border border-border rounded-xl p-6 h-[320px] flex flex-col">
@@ -27,7 +37,7 @@ export function LeadPipeline() {
             Status Breakdown
           </div>
           <div className="flex flex-col gap-1.5">
-            {PIPELINE_FUNNEL_MOCK_DATA.map((item) => (
+            {funnel.map((item) => (
               <Link key={item.status} href={`/leads?status=${item.status.toLowerCase()}`} className="flex items-center group cursor-pointer rounded-sm hover:bg-accent -mx-2 px-2 py-0.5 transition-colors">
                 <div className="w-[70px] text-[0.8125rem] text-secondary-foreground shrink-0">{item.status}</div>
                 <div className="flex-1 flex items-center h-5 mr-3 relative bg-secondary rounded-r-sm overflow-hidden">
@@ -49,7 +59,7 @@ export function LeadPipeline() {
             Top Leads By Score
           </div>
           <div className="flex flex-col">
-            {PIPELINE_TOP_LEADS_MOCK_DATA.map((lead, i) => (
+            {topLeads.map((lead, i) => (
               <Link key={i} href={`/leads/${i}`} className="flex items-center justify-between h-[44px] group hover:bg-accent -mx-2 px-2 rounded-md transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-7 h-7 rounded-full bg-accent text-primary flex items-center justify-center text-xs font-medium shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">

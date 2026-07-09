@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CampaignWizardState } from '../../hooks/useCampaignWizard';
-import { EmailAccount, EMAIL_ACCOUNTS_MOCK_DATA } from '../../../../mocks/email-accounts';
+import { CampaignsService } from '../../../../lib/api/campaigns.service';
 import { Mail, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import clsx from 'clsx';
@@ -11,10 +11,10 @@ interface StepEmailAccountProps {
 }
 
 export function StepEmailAccount({ formData, updateFormData }: StepEmailAccountProps) {
-  const [accounts, setAccounts] = useState<EmailAccount[]>([]);
+  const [accounts, setAccounts] = useState<unknown[]>([]);
 
   useEffect(() => {
-    setAccounts(EMAIL_ACCOUNTS_MOCK_DATA);
+    CampaignsService.getAccounts().then(setAccounts);
   }, []);
 
   return (

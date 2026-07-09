@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CampaignWizardState } from '../../hooks/useCampaignWizard';
-import { SEGMENTS_MOCK_DATA } from '../../../../mocks/segments';
-import { SEQUENCES_MOCK_DATA } from '../../../../mocks/sequences';
-import { EMAIL_ACCOUNTS_MOCK_DATA } from '../../../../mocks/email-accounts';
+import { useState, useEffect } from 'react';
+import { CampaignsService } from '../../../../lib/api/campaigns.service';
+import { SequencesService } from '../../../../lib/api/sequences.service';
 import { AlertTriangle, Info } from 'lucide-react';
 
 interface StepReviewProps {
@@ -10,17 +10,19 @@ interface StepReviewProps {
 }
 
 export function StepReview({ formData }: StepReviewProps) {
-  const [data, setData] = useState({
-    segment: null as any,
-    sequence: null as any,
-    account: null as any,
-  });
+  const [data, setData] = useState<unknown>({ segment: null, sequence: null, account: null });
 
   useEffect(() => {
-    setData({
-      segment: SEGMENTS_MOCK_DATA.find(s => s.id === formData.segmentId),
-      sequence: SEQUENCES_MOCK_DATA.find(s => s.id === formData.sequenceId),
-      account: EMAIL_ACCOUNTS_MOCK_DATA.find(s => s.id === formData.emailAccountId),
+    Promise.all([
+      CampaignsService.getSegments(),
+      SequencesService.getSequences(),
+      CampaignsService.getAccounts()
+    ]).then(([segments, sequences, accounts]) => {
+      setData({
+        segment: segments.find((s: unknown) => s.id === formData.segmentId),
+        sequence: sequences.find((s: unknown) => s.id === formData.sequenceId),
+        account: accounts.find((a: unknown) => a.id === formData.emailAccountId)
+      });
     });
   }, [formData]);
 
@@ -102,7 +104,7 @@ export function StepReview({ formData }: StepReviewProps) {
       <div className="bg-secondary/10 rounded-lg p-3 flex gap-2 items-start mt-2">
         <Info className="w-4 h-4 text-secondary-foreground shrink-0 mt-0.5" />
         <p className="text-xs text-secondary-foreground">
-          Emails will be sent according to your account's daily limits and sending window configurations.
+          Emails will be sent according to your account&apos;s daily limits and sending window configurations.
         </p>
       </div>
     </div>

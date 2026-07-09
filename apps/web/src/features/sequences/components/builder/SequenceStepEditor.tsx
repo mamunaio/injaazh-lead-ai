@@ -24,7 +24,6 @@ export function SequenceStepEditor({
   const [templatesLoading, setTemplatesLoading] = useState(true);
 
   useEffect(() => {
-    setTemplatesLoading(true);
     PromptsService.getTemplates()
       .then(data => {
         setTemplates(data);

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Lead, LeadStatus } from '../../../lib/api/leads.service';
-import { LeadsService, LeadsFilters } from '../../../lib/api/leads.service';
+import { LeadsService } from '../../../lib/api/leads.service';
+
+import { toast } from 'sonner';
 
 export function useLeads() {
   const [loading, setLoading] = useState(true);
@@ -22,6 +24,7 @@ export function useLeads() {
         }
       } catch (error) {
         console.error("Failed to fetch leads", error);
+        toast.error("Failed to fetch leads");
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -40,9 +43,11 @@ export function useLeads() {
     try {
       const newLead = await LeadsService.createLead(data);
       setLeads((prev) => [newLead, ...prev]);
+      toast.success("Lead created successfully");
       return newLead;
     } catch (error) {
       console.error("Failed to create lead", error);
+      toast.error("Failed to create lead");
       throw error;
     }
   };
@@ -51,9 +56,11 @@ export function useLeads() {
     try {
       const updatedLead = await LeadsService.updateLead(id, data);
       setLeads((prev) => prev.map((l) => (l.id === id ? updatedLead : l)));
+      toast.success("Lead updated successfully");
       return updatedLead;
     } catch (error) {
       console.error("Failed to update lead", error);
+      toast.error("Failed to update lead");
       throw error;
     }
   };
@@ -62,8 +69,10 @@ export function useLeads() {
     try {
       await LeadsService.deleteLead(id);
       setLeads((prev) => prev.filter((l) => l.id !== id));
+      toast.success("Lead deleted");
     } catch (error) {
       console.error("Failed to delete lead", error);
+      toast.error("Failed to delete lead");
       throw error;
     }
   };

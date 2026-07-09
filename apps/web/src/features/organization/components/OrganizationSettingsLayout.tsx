@@ -5,6 +5,8 @@ import { OrgInviteSection } from './OrgInviteSection';
 import { OrgDangerZone } from './OrgDangerZone';
 import { DeleteOrgModal } from './DeleteOrgModal';
 
+import { PageLoader } from '../../../components/ui/PageLoader';
+
 export function OrganizationSettingsLayout() {
   const {
     organization,
@@ -18,7 +20,7 @@ export function OrganizationSettingsLayout() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   if (loading || !organization) {
-    return <div className="p-6">Loading organization...</div>;
+    return <PageLoader message="Loading organization..." />;
   }
 
   return (

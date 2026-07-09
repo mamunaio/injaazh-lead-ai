@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmailThread } from '../../../mocks/inbox';
+import { EmailThread } from '../../../lib/api/inbox.service';
 import clsx from 'clsx';
 import { Search, Inbox as InboxIcon } from 'lucide-react';
 

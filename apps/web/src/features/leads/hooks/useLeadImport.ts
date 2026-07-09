@@ -73,7 +73,7 @@ export function useLeadImport() {
     
     try {
       const payload = allParsedData.map(row => {
-        const lead: any = {
+        const lead: Record<string, string | string[]> = {
           status: defaultStatus,
           tags: tags,
         };
@@ -103,9 +103,10 @@ export function useLeadImport() {
       // Refresh the router to reload the lead list on navigation
       router.refresh();
       
-    } catch (err: any) {
-      console.error('Import failed', err);
-      alert('Import failed: ' + err.message);
+    } catch (err: unknown) {
+      const error = err as Error;
+      console.error('Import failed', error);
+      alert('Import failed: ' + error.message);
       setCurrentStep('map'); // go back on error
     }
   }, [allParsedData, mapping, defaultStatus, tags, router]);

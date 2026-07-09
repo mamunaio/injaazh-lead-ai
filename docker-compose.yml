@@ -23,6 +23,28 @@ services:
     command: redis-server --appendonly yes
 
   # Production Web Server (Comment out for local dev if desired, but keeping them here)
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: always
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./apps/api/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      - redis
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    profiles: ["production"]
+
   web:
     build:
       context: ./apps/web

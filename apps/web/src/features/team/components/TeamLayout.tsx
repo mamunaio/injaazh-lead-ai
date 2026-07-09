@@ -3,6 +3,7 @@ import { useTeam } from '../hooks/useTeam';
 import { TeamTable } from './TeamTable';
 import { InviteMemberModal } from './InviteMemberModal';
 import { UserPlus } from 'lucide-react';
+import { PageLoader } from '../../../components/ui/PageLoader';
 
 export function TeamLayout() {
   const { 
@@ -11,8 +12,13 @@ export function TeamLayout() {
     setIsInviteModalOpen, 
     updateMemberRole, 
     removeMember, 
-    inviteMember 
+    inviteMember,
+    loading
   } = useTeam();
+
+  if (loading) {
+    return <PageLoader message="Loading team members..." />;
+  }
 
   return (
     <div className="w-full h-full flex flex-col bg-background p-6 overflow-y-auto">

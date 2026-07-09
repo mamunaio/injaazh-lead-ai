@@ -77,7 +77,7 @@ Clone the repository and install the dependencies for the Monorepo:
 ```bash
 git clone https://github.com/your-username/injaazh-lead-ai.git
 cd injaazh-lead-ai
-npm install
+pnpm install
 ```
 
 ### 2. Environment Variables
@@ -108,7 +108,7 @@ Start the API in development mode with Hot Reload:
 
 ```bash
 cd apps/api
-npm run start:dev
+pnpm run start:dev
 ```
 
 The API will be available at `http://localhost:3001`.
@@ -132,8 +132,8 @@ The repository includes several custom CLI scratch scripts to verify the core en
 To run the complete test suite:
 
 ```bash
-npm run test
-npm run test:e2e
+pnpm run test
+pnpm run test:e2e
 ```
 
 ---

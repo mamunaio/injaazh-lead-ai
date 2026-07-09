@@ -83,12 +83,12 @@ const KpiCard = ({ data, loading }: { data: KpiData, loading?: boolean }) => {
   );
 };
 
-import { KPI_CARDS_MOCK_DATA } from '../../../mocks/dashboard';
+
 
 export function KpiCards({ loading }: { loading?: boolean }) {
   return (
     <div className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-      {KPI_CARDS_MOCK_DATA.map((card, i) => (
+      {kpis.map((card, i) => (
         <KpiCard key={i} data={card} loading={loading} />
       ))}
     </div>

@@ -40,7 +40,7 @@ export function AiDrawer({
         
         <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
           <div className="bg-secondary rounded-lg p-3 text-sm text-foreground">
-            Hi! I'm your Injaazh AI assistant. How can I help you today?
+            Hi! I&apos;m your Injaazh AI assistant. How can I help you today?
           </div>
         </div>
         
