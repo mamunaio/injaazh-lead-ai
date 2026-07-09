@@ -1,4 +1,8 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { DashboardService } from '../../../lib/api/dashboard.service';
+
 import { ArrowDownToLine, BadgeCheck, Mail, MessageSquare } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -86,6 +90,49 @@ const KpiCard = ({ data, loading }: { data: KpiData, loading?: boolean }) => {
 
 
 export function KpiCards({ loading }: { loading?: boolean }) {
+
+  const [kpis, setData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    DashboardService.getKpis().then(res => {
+      // Handle the raw analytics object
+      const data = (res as any) || {};
+      const formattedKpis = [
+        {
+          label: 'Total Leads',
+          value: data.totalLeads?.toLocaleString() || '0',
+          trend: 'Live',
+          trendPositive: true,
+          color: 'blue'
+        },
+        {
+          label: 'New Today',
+          value: data.importedToday?.toLocaleString() || '0',
+          trend: 'Today',
+          trendPositive: true,
+          color: 'green'
+        },
+        {
+          label: 'Emails Sent',
+          value: data.emailsSent?.toLocaleString() || '0',
+          trend: 'Active',
+          trendPositive: true,
+          color: 'violet'
+        },
+        {
+          label: 'Reply Rate',
+          value: data.replyRate !== undefined ? `${data.replyRate}%` : '0%',
+          trend: 'Conversion',
+          trendPositive: data.replyRate > 0,
+          trendNeutral: data.replyRate === 0,
+          color: 'orange'
+        }
+      ];
+      setData(formattedKpis);
+    }).catch(console.error).finally(() => setIsLoading(false));
+  }, []);
+
   return (
     <div className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
       {kpis.map((card, i) => (

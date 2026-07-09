@@ -1,4 +1,8 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { DashboardService } from '../../../lib/api/dashboard.service';
+
 import { MessageSquare, Eye, CheckCircle, Upload, Sparkles, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -11,7 +15,19 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Sparkles
 };
 
-export function RecentActivity() {
+export function RecentActivity({ loading }: { loading?: boolean }) {
+
+  const [activities, setData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    DashboardService.getRecentActivity().then(res => {
+      if (Array.isArray(res)) setData(res);
+      else if (res && Array.isArray(res.data)) setData(res.data);
+      else if (res) setData([res]);
+    }).catch(console.error).finally(() => setIsLoading(false));
+  }, []);
+
   
   const _renderGroup = (label: string, items: unknown[]) => (
     <div className="mb-4">

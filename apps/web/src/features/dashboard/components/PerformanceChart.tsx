@@ -1,6 +1,22 @@
-import React from 'react';
+"use client";
 
-export function PerformanceChart() {
+import React, { useState, useEffect } from 'react';
+import { DashboardService } from '../../../lib/api/dashboard.service';
+
+
+export function PerformanceChart({ loading }: { loading?: boolean }) {
+
+  const [performanceData, setData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    DashboardService.getPerformance().then(res => {
+      if (Array.isArray(res)) setData(res);
+      else if (res && Array.isArray(res.data)) setData(res.data);
+      else if (res) setData([res]);
+    }).catch(console.error).finally(() => setIsLoading(false));
+  }, []);
+
   return (
     <div className="col-span-12 lg:col-span-8 bg-card border border-border rounded-xl p-6 h-[280px] flex flex-col">
       <div className="flex items-center justify-between mb-4">

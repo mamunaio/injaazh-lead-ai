@@ -28,8 +28,7 @@ export class AiProcessor extends WorkerHost {
       }
 
       if (!lead.websiteAnalysis) {
-        this.logger.warn(`Lead ${leadId} has no website analysis. Skipping AI generation.`);
-        return;
+        this.logger.warn(`Lead ${leadId} has no website analysis. Generating generic outreach.`);
       }
 
       const aiOutreach = await this.aiService.generateOutreach(lead);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MetricCard } from './MetricCard';
 import { ChartWidget } from './ChartWidget';
-import { DashboardMetrics } from '../../../lib/api/analytics.service';
+import {  DashboardMetrics , AnalyticsService } from '../../../lib/api/analytics.service';
 import { Users, Mail, MousePointerClick, TrendingUp } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 

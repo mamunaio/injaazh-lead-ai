@@ -13,6 +13,10 @@ export const DashboardService = {
     return apiFetch<unknown[]>('/dashboard/pipeline/funnel').catch(() => []);
   },
 
+  getPerformance: async (): Promise<unknown[]> => {
+    return apiFetch<unknown[]>('/analytics/performance').catch(() => []);
+  },
+
   getPipelineTopLeads: async (): Promise<unknown[]> => {
     return apiFetch<unknown[]>('/dashboard/pipeline/top-leads').catch(() => []);
   },

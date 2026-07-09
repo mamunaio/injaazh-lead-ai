@@ -6,7 +6,19 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { DashboardService } from '../../../lib/api/dashboard.service';
 
-export function LeadPipeline() {
+export function LeadPipeline({ loading }: { loading?: boolean }) {
+
+  const [funnelData, setData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    DashboardService.getPipelineFunnel().then(res => {
+      if (Array.isArray(res)) setData(res);
+      else if (res && Array.isArray(res.data)) setData(res.data);
+      else if (res) setData([res]);
+    }).catch(console.error).finally(() => setIsLoading(false));
+  }, []);
+
   const [funnel, setFunnel] = useState<unknown[]>([]);
   const [topLeads, setTopLeads] = useState<unknown[]>([]);
 

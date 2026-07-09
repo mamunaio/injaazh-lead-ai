@@ -7,7 +7,7 @@ import { envValidationSchema } from './env.validation';
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: envValidationSchema,
-      envFilePath: ['.env.local', '.env'], // Load from .env files
+      envFilePath: ['.env.local', '.env', '../../.env.local', '../../.env'], // Load from app root and workspace root
     }),
   ],
   exports: [ConfigModule],

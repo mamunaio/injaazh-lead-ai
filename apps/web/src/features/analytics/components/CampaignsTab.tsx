@@ -18,7 +18,7 @@ export function CampaignsTab() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border text-foreground">
-              {CAMPAIGN_PERFORMANCE.map((campaign: unknown, i: number) => (
+              {[].map((campaign: unknown, i: number) => (
                 <tr key={i} className="hover:bg-secondary/5 transition-colors">
                   <td className="px-4 py-4 font-medium">{campaign.name}</td>
                   <td className="px-4 py-4">{campaign.sent.toLocaleString()}</td>

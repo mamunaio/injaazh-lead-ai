@@ -19,7 +19,7 @@ export function LeadsTab() {
               dataKey="value"
               stroke="none"
             >
-              {LEAD_SOURCES.map((entry: unknown, index: number) => (
+              {[].map((entry: unknown, index: number) => (
                 <Cell key={`cell-${index}`} fill={entry.fill} />
               ))}
             </Pie>

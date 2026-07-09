@@ -5,12 +5,20 @@ import { Sparkles, ArrowRight } from 'lucide-react';
 import { DashboardService } from '../../../lib/api/dashboard.service';
 import { useState, useEffect } from 'react';
 
-export function AiInsightStrip() {
-  const [insights, setInsights] = useState<unknown[]>([]);
+export function AiInsightStrip({ loading }: { loading?: boolean }) {
+
+  const [insights, setData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    DashboardService.getAiInsights().then(setInsights);
+    DashboardService.getAiInsights().then(res => {
+      if (Array.isArray(res)) setData(res);
+      else if (res && Array.isArray(res.data)) setData(res.data);
+      else if (res) setData([res]);
+    }).catch(console.error).finally(() => setIsLoading(false));
   }, []);
+
+
   return (
     <div className="col-span-12 lg:col-span-4 bg-card border border-border rounded-xl p-6 h-[280px] flex flex-col">
       <div className="flex items-center justify-between mb-4">

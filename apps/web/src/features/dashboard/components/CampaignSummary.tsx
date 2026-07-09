@@ -6,7 +6,19 @@ import Link from 'next/link';
 import { DashboardService } from '../../../lib/api/dashboard.service';
 import { useState, useEffect } from 'react';
 
-export function CampaignSummary() {
+export function CampaignSummary({ loading }: { loading?: boolean }) {
+
+  const [campaignStats, setData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    DashboardService.getCampaignStats().then(res => {
+      if (Array.isArray(res)) setData(res);
+      else if (res && Array.isArray(res.data)) setData(res.data);
+      else if (res) setData([res]);
+    }).catch(console.error).finally(() => setIsLoading(false));
+  }, []);
+
   const [stats, setStats] = useState<unknown>(null);
   const [campaigns, setCampaigns] = useState<unknown[]>([]);
 

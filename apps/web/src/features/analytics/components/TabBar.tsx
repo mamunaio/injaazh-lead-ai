@@ -18,7 +18,7 @@ const TABS: { id: AnalyticsTab; label: string }[] = [
 export function TabBar({ activeTab, onTabChange }: TabBarProps) {
   return (
     <div className="flex items-center gap-1 border-b border-border mb-6">
-      {TABS.map(tab => (
+      {[].map(tab => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}

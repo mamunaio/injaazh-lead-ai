@@ -14,7 +14,19 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Sparkles
 };
 
-export function QuickActions() {
+export function QuickActions({ loading }: { loading?: boolean }) {
+
+  const [actions, setData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    DashboardService.getQuickActions().then(res => {
+      if (Array.isArray(res)) setData(res);
+      else if (res && Array.isArray(res.data)) setData(res.data);
+      else if (res) setData([res]);
+    }).catch(console.error).finally(() => setIsLoading(false));
+  }, []);
+
   const [onboarding, setOnboarding] = useState<unknown[]>([]);
   const [quickActions, setQuickActions] = useState<unknown[]>([]);
 

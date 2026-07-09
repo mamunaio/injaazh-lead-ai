@@ -9,6 +9,7 @@ export class AiGenerationService {
 
   constructor(private readonly configService: ConfigService) {
     const apiKey = this.configService.get<string>('GEMINI_API_KEY');
+    this.logger.log(`Initializing Gemini with API Key starting with: ${apiKey ? apiKey.substring(0, 10) : 'undefined'}`);
     this.ai = new GoogleGenAI({ apiKey });
   }
 
